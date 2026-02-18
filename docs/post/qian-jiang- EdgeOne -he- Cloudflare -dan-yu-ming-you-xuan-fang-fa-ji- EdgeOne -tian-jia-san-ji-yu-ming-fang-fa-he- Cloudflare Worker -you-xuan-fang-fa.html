@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/200838321?v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="------------------------------------------------------------------------
+
+# 前情提要
+
+> 优选方法的话其实 L 站有，而且很简单，但是**都很不清晰**，导致我第一次弄花了 2 个小时，有人问我就讲一下
+
+# 前言
+- 因为优选不知是否明确允许，并且**可能有封号风险，请自行斟酌**
+- 我是小白，不懂原理，**只讲方法**，作为记录，可能具有时效性（2025年9月后请自觉判断是否可用）
+- 这里不讲 Cloudflare 的 SaaS 回源来优选，因为我觉得复杂化并且我没有成功使用过这个方法
+
+# 需要
+
+（这里不教怎么获取和托管，默认已经获得和会，站里的教程很详细，找不到可以问我）
+
+- Cloudflare 账号
+- 一个域名（需要托管在 Cloudflare，支持免费的三级域名）
+- EdgeOne 账号（这里使用国际站演示，不确保国内网站是否可以使用，可以通过谷歌来进行登录，可以不用实名和绑卡能够直接使用的）
+- EdgeOne 的一个免费套餐（获取方法有很多，目前一个账号可以获得 5 个，绰绰有余）
+
+# 教程
+
+**从头开始，优选关键在第 6 步**
+
+1. 打开控制台 [[服务总览 - EdgeOne - 控制台](https://console.tencentcloud.com/edgeone/zones)] ，注意，这是国际站，和腾讯云有区别
+2. 添加站点
+
+<img width='1794' height='655' alt='Image' src='https://github.com/user-attachments/assets/6a190731-63cb-4a43-a488-668d19c0a612' />
+
+ 3. EdgeOne 是支持免费的三级域名的，不知道站里有没有人讲过（下面分两种情况）  
+  - 先讲购买的二级域名，例如我的 `243344.xyz`
+
+<img width='925' height='491' alt='Image' src='https://github.com/user-attachments/assets/4f51f574-9397-4dfd-9eb8-bcb57828c65b' />
+
+<img width='1341' height='733' alt='Image' src='https://github.com/user-attachments/assets/a3bcb07a-77f9-407c-b36d-0c890c641a32' />
+
+- 这个教程基本上是面向不备案的，备案的也不太需要优选？**必须选择 CNAME！**
+
+<img width='886' height='506' alt='Image' src='https://github.com/user-attachments/assets/c9643830-1723-4dc0-b10c-5506f0f77285' />
+
+- 下面这里分成两种情况，一是使用的二级域名，就照着教程下去验证就行，二如果使用的是三级域名例如 `xxx.dpdns.org`，那就跳过验证，因为我已经添加过了，图片仅供演示
+
+<img width='934' height='645' alt='Image' src='https://github.com/user-attachments/assets/aaf79f19-9f3e-47a1-9ccb-22e633d75f53' />
+
+<img width='1206' height='333' alt='Image' src='https://github.com/user-attachments/assets/73e2746f-321f-4adc-8ffc-4bd0e0098975' />
+
+- 不知为何，同为三级域名，`xxx.ggff.net` 可以过验证，`xxx.dpdns.org` 不行，其实，实践发现，这一步验不验证好像没什么用（还是有用的，有些情况要求验证）
+
+<img width='919' height='529' alt='Image' src='https://github.com/user-attachments/assets/6294bfbd-0837-4e3a-b4ca-94e1f0b38931' />
+
+<img width='814' height='469' alt='Image' src='https://github.com/user-attachments/assets/ce9ec4a5-9855-449b-a663-738527cca9b2' />
+
+- 使用 `xxx.dpdns.org` 的话，接入 `dpdns.org` 即可，然后到验证那一步直接跳过
+
+<img width='759' height='485' alt='Image' src='https://github.com/user-attachments/assets/aa5dd7ec-4fc4-45e4-a123-4766318ab639' />
+
+<img width='940' height='608' alt='Image' src='https://github.com/user-attachments/assets/318ab217-4db7-4321-9c2c-eb94ca4d1a37' />
+
+<img width='681' height='221' alt='Image' src='https://github.com/user-attachments/assets/d36b3bd3-2cb0-4e0d-88c0-88c93cc1f2fa' />
+
+ 4. **添加域名**，模板可以不选择，看自己需求，直接下一步
+
+<img width='1731' height='776' alt='Image' src='https://github.com/user-attachments/assets/435d05d6-070c-43e6-86a7-b5c84148c604' />
+
+- 我这里讲一下我的用法（怎么添加源站）
+
+> 我是参考 [[[超详细教学] 教你从零开始，入坑域名、云服务器并部署 New API + Open WebUI！ - 文档共建 - LINUX DO](https://linux.do/t/topic/188813)](https://linux.do/t/topic/188813) 这一篇帖子服务器套 Cloudflare 的 CDN 了，所以不想动了并且 EdgeOne 是xxx不敢这么放心
+> <img width='764' height='106' alt='Image' src='https://github.com/user-attachments/assets/5b347203-1ea1-420c-bc7b-a1a4473d05fd' />
+> 网站是使用 OpenResty 反代，原本是 `api.wslz.dpdns.org` 就改成别名 `api2.wslz.dpdns.org`, 然后加速域名就可以使用 `api.wslz.dpdns.org` 了（其实我是想配置两个 api 地址，但是发现 new-api 好像不支持并且如果换了 L 站登录也会失效），不想这么麻烦可以直接使用 ip，参考 [[leaflow 部署 donehub 并使用自定义域名接入 edgeone cdn 加速 - 开发调优 - LINUX DO](https://linux.do/t/topic/876681)]，不想讲太多感觉越讲越乱，看自己悟吧，实在不懂也可以给出具体的来具体分析，但是不要把公网 ip 发出来
+> _这里简单说明白了一件事情就是中间再套一层 cf 是完全可行的，双层 cdn，不过好像没什么用，说不定减速_
+
+<img width='1350' height='641' alt='Image' src='https://github.com/user-attachments/assets/b63dab76-1e4f-4a9f-a0bd-43d36b4d5106' />
+
+ 5. 验证
+
+<img width='1409' height='670' alt='Image' src='https://github.com/user-attachments/assets/80cbf62d-6db3-4ceb-999f-9b2f6e0950dc' />
+
+<img width='1334' height='540' alt='Image' src='https://github.com/user-attachments/assets/93a2c1d8-e8bb-4d51-a808-1fb2ab8457d0' />
+
+- 这时候如果使用 `xxx.dpdns.org` 的话，大概率要你验证域名所有权，直接验证即可，参考图片即可，不要验证 `dpdns.org` 的所有权，是验证 `xxx.dpdns.org` 的所有权，方法同上
+
+<img width='1075' height='699' alt='Image' src='https://github.com/user-attachments/assets/5bed6093-4034-430a-86ed-127e40a1016b' />
+
+<img width='1341' height='678' alt='Image' src='https://github.com/user-attachments/assets/112e1bcd-3343-47fb-b8bb-e94b0cdc0607' />
+
+- 出现不安全考虑开启 HTTPS 配置，EdgeOne 的部署普遍偏慢，要 5 分钟左右，当然可能更多
+
+<img width='1481' height='431' alt='Image' src='https://github.com/user-attachments/assets/48d84b65-2fd0-4b0f-8048-a5a516f605de' />
+
+<img width='1014' height='734' alt='Image' src='https://github.com/user-attachments/assets/2853bd46-6976-4725-a09c-f0627ba92f5d' />
+
+ 6. **加速优选（关键，但是是最简单的一步，我也不知道为什么前面会写这么多，越写越多，想到什么就写什么）**  
+ 找到上一步添加在 Cloudflare 添加的 CNAME 记录，修改值为优选域名，保存即可，优选域名参考 
+https://www.wetest.vip
+
+<img width='1351' height='450' alt='Image' src='https://github.com/user-attachments/assets/7733bb5c-e123-48de-98b9-f73a424fb0b3' />
+
+- 出现下面这个不用管
+
+<img width='543' height='263' alt='Image' src='https://github.com/user-attachments/assets/a0fa8dff-551d-422f-9c1b-fd0530788a3a' />
+
+7. **加速前后对比**（参考，因为这个项目 worker 我优选过一次域名了，所以区别不是特别明显，建议自己尝试，通过这个我主要是解决了我服务器的域名优选，加速并且解决移动阻断的问题，而 cf worker 请看下面另外一种方法）
+
+- **加速前**
+
+<img width='764' height='690' alt='Image' src='https://github.com/user-attachments/assets/8ea356cb-f689-4e3e-b140-12b4adc8d7f7' />
+
+<img width='759' height='680' alt='Image' src='https://github.com/user-attachments/assets/51e31451-4f4e-4796-bf3c-548848f74c0d' />
+
+- **加速后**（好像不是特别明显，建议自己试试，因为这个项目 worker 我优选过一次域名了）
+
+<img width='768' height='614' alt='Image' src='https://github.com/user-attachments/assets/07c11b18-9c16-46d0-9888-aa062dcaf615' />
+
+<img width='761' height='631' alt='Image' src='https://github.com/user-attachments/assets/4c64e3db-414e-4350-b7bb-5fb6571ab276' />
+
+8. Cloudflare Worker 域名优选（这个方法仅对 Worker 有效，page 无效，不过 page 好像没被墙？）
+> qaz741wsd856:
+> page 也能优选，只要不把 page 的域名托管到 cf 就行，方法跟 edgeone 的 cname 接入一样。">
+<meta property="og:title" content="浅讲 EdgeOne 和 Cloudflare 单域名优选方法及 EdgeOne 添加三级域名方法和 Cloudflare Worker 优选方法">
+<meta property="og:description" content="------------------------------------------------------------------------
+
+# 前情提要
+
+> 优选方法的话其实 L 站有，而且很简单，但是**都很不清晰**，导致我第一次弄花了 2 个小时，有人问我就讲一下
+
+# 前言
+- 因为优选不知是否明确允许，并且**可能有封号风险，请自行斟酌**
+- 我是小白，不懂原理，**只讲方法**，作为记录，可能具有时效性（2025年9月后请自觉判断是否可用）
+- 这里不讲 Cloudflare 的 SaaS 回源来优选，因为我觉得复杂化并且我没有成功使用过这个方法
+
+# 需要
+
+（这里不教怎么获取和托管，默认已经获得和会，站里的教程很详细，找不到可以问我）
+
+- Cloudflare 账号
+- 一个域名（需要托管在 Cloudflare，支持免费的三级域名）
+- EdgeOne 账号（这里使用国际站演示，不确保国内网站是否可以使用，可以通过谷歌来进行登录，可以不用实名和绑卡能够直接使用的）
+- EdgeOne 的一个免费套餐（获取方法有很多，目前一个账号可以获得 5 个，绰绰有余）
+
+# 教程
+
+**从头开始，优选关键在第 6 步**
+
+1. 打开控制台 [[服务总览 - EdgeOne - 控制台](https://console.tencentcloud.com/edgeone/zones)] ，注意，这是国际站，和腾讯云有区别
+2. 添加站点
+
+<img width='1794' height='655' alt='Image' src='https://github.com/user-attachments/assets/6a190731-63cb-4a43-a488-668d19c0a612' />
+
+ 3. EdgeOne 是支持免费的三级域名的，不知道站里有没有人讲过（下面分两种情况）  
+  - 先讲购买的二级域名，例如我的 `243344.xyz`
+
+<img width='925' height='491' alt='Image' src='https://github.com/user-attachments/assets/4f51f574-9397-4dfd-9eb8-bcb57828c65b' />
+
+<img width='1341' height='733' alt='Image' src='https://github.com/user-attachments/assets/a3bcb07a-77f9-407c-b36d-0c890c641a32' />
+
+- 这个教程基本上是面向不备案的，备案的也不太需要优选？**必须选择 CNAME！**
+
+<img width='886' height='506' alt='Image' src='https://github.com/user-attachments/assets/c9643830-1723-4dc0-b10c-5506f0f77285' />
+
+- 下面这里分成两种情况，一是使用的二级域名，就照着教程下去验证就行，二如果使用的是三级域名例如 `xxx.dpdns.org`，那就跳过验证，因为我已经添加过了，图片仅供演示
+
+<img width='934' height='645' alt='Image' src='https://github.com/user-attachments/assets/aaf79f19-9f3e-47a1-9ccb-22e633d75f53' />
+
+<img width='1206' height='333' alt='Image' src='https://github.com/user-attachments/assets/73e2746f-321f-4adc-8ffc-4bd0e0098975' />
+
+- 不知为何，同为三级域名，`xxx.ggff.net` 可以过验证，`xxx.dpdns.org` 不行，其实，实践发现，这一步验不验证好像没什么用（还是有用的，有些情况要求验证）
+
+<img width='919' height='529' alt='Image' src='https://github.com/user-attachments/assets/6294bfbd-0837-4e3a-b4ca-94e1f0b38931' />
+
+<img width='814' height='469' alt='Image' src='https://github.com/user-attachments/assets/ce9ec4a5-9855-449b-a663-738527cca9b2' />
+
+- 使用 `xxx.dpdns.org` 的话，接入 `dpdns.org` 即可，然后到验证那一步直接跳过
+
+<img width='759' height='485' alt='Image' src='https://github.com/user-attachments/assets/aa5dd7ec-4fc4-45e4-a123-4766318ab639' />
+
+<img width='940' height='608' alt='Image' src='https://github.com/user-attachments/assets/318ab217-4db7-4321-9c2c-eb94ca4d1a37' />
+
+<img width='681' height='221' alt='Image' src='https://github.com/user-attachments/assets/d36b3bd3-2cb0-4e0d-88c0-88c93cc1f2fa' />
+
+ 4. **添加域名**，模板可以不选择，看自己需求，直接下一步
+
+<img width='1731' height='776' alt='Image' src='https://github.com/user-attachments/assets/435d05d6-070c-43e6-86a7-b5c84148c604' />
+
+- 我这里讲一下我的用法（怎么添加源站）
+
+> 我是参考 [[[超详细教学] 教你从零开始，入坑域名、云服务器并部署 New API + Open WebUI！ - 文档共建 - LINUX DO](https://linux.do/t/topic/188813)](https://linux.do/t/topic/188813) 这一篇帖子服务器套 Cloudflare 的 CDN 了，所以不想动了并且 EdgeOne 是xxx不敢这么放心
+> <img width='764' height='106' alt='Image' src='https://github.com/user-attachments/assets/5b347203-1ea1-420c-bc7b-a1a4473d05fd' />
+> 网站是使用 OpenResty 反代，原本是 `api.wslz.dpdns.org` 就改成别名 `api2.wslz.dpdns.org`, 然后加速域名就可以使用 `api.wslz.dpdns.org` 了（其实我是想配置两个 api 地址，但是发现 new-api 好像不支持并且如果换了 L 站登录也会失效），不想这么麻烦可以直接使用 ip，参考 [[leaflow 部署 donehub 并使用自定义域名接入 edgeone cdn 加速 - 开发调优 - LINUX DO](https://linux.do/t/topic/876681)]，不想讲太多感觉越讲越乱，看自己悟吧，实在不懂也可以给出具体的来具体分析，但是不要把公网 ip 发出来
+> _这里简单说明白了一件事情就是中间再套一层 cf 是完全可行的，双层 cdn，不过好像没什么用，说不定减速_
+
+<img width='1350' height='641' alt='Image' src='https://github.com/user-attachments/assets/b63dab76-1e4f-4a9f-a0bd-43d36b4d5106' />
+
+ 5. 验证
+
+<img width='1409' height='670' alt='Image' src='https://github.com/user-attachments/assets/80cbf62d-6db3-4ceb-999f-9b2f6e0950dc' />
+
+<img width='1334' height='540' alt='Image' src='https://github.com/user-attachments/assets/93a2c1d8-e8bb-4d51-a808-1fb2ab8457d0' />
+
+- 这时候如果使用 `xxx.dpdns.org` 的话，大概率要你验证域名所有权，直接验证即可，参考图片即可，不要验证 `dpdns.org` 的所有权，是验证 `xxx.dpdns.org` 的所有权，方法同上
+
+<img width='1075' height='699' alt='Image' src='https://github.com/user-attachments/assets/5bed6093-4034-430a-86ed-127e40a1016b' />
+
+<img width='1341' height='678' alt='Image' src='https://github.com/user-attachments/assets/112e1bcd-3343-47fb-b8bb-e94b0cdc0607' />
+
+- 出现不安全考虑开启 HTTPS 配置，EdgeOne 的部署普遍偏慢，要 5 分钟左右，当然可能更多
+
+<img width='1481' height='431' alt='Image' src='https://github.com/user-attachments/assets/48d84b65-2fd0-4b0f-8048-a5a516f605de' />
+
+<img width='1014' height='734' alt='Image' src='https://github.com/user-attachments/assets/2853bd46-6976-4725-a09c-f0627ba92f5d' />
+
+ 6. **加速优选（关键，但是是最简单的一步，我也不知道为什么前面会写这么多，越写越多，想到什么就写什么）**  
+ 找到上一步添加在 Cloudflare 添加的 CNAME 记录，修改值为优选域名，保存即可，优选域名参考 
+https://www.wetest.vip
+
+<img width='1351' height='450' alt='Image' src='https://github.com/user-attachments/assets/7733bb5c-e123-48de-98b9-f73a424fb0b3' />
+
+- 出现下面这个不用管
+
+<img width='543' height='263' alt='Image' src='https://github.com/user-attachments/assets/a0fa8dff-551d-422f-9c1b-fd0530788a3a' />
+
+7. **加速前后对比**（参考，因为这个项目 worker 我优选过一次域名了，所以区别不是特别明显，建议自己尝试，通过这个我主要是解决了我服务器的域名优选，加速并且解决移动阻断的问题，而 cf worker 请看下面另外一种方法）
+
+- **加速前**
+
+<img width='764' height='690' alt='Image' src='https://github.com/user-attachments/assets/8ea356cb-f689-4e3e-b140-12b4adc8d7f7' />
+
+<img width='759' height='680' alt='Image' src='https://github.com/user-attachments/assets/51e31451-4f4e-4796-bf3c-548848f74c0d' />
+
+- **加速后**（好像不是特别明显，建议自己试试，因为这个项目 worker 我优选过一次域名了）
+
+<img width='768' height='614' alt='Image' src='https://github.com/user-attachments/assets/07c11b18-9c16-46d0-9888-aa062dcaf615' />
+
+<img width='761' height='631' alt='Image' src='https://github.com/user-attachments/assets/4c64e3db-414e-4350-b7bb-5fb6571ab276' />
+
+8. Cloudflare Worker 域名优选（这个方法仅对 Worker 有效，page 无效，不过 page 好像没被墙？）
+> qaz741wsd856:
+> page 也能优选，只要不把 page 的域名托管到 cf 就行，方法跟 edgeone 的 cname 接入一样。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://WslzGmzs.github.io/post/qian-jiang-%20EdgeOne%20-he-%20Cloudflare%20-dan-yu-ming-you-xuan-fang-fa-ji-%20EdgeOne%20-tian-jia-san-ji-yu-ming-fang-fa-he-%20Cloudflare%20Worker%20-you-xuan-fang-fa.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/200838321?v=4">
+<title>浅讲 EdgeOne 和 Cloudflare 单域名优选方法及 EdgeOne 添加三级域名方法和 Cloudflare Worker 优选方法</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">浅讲 EdgeOne 和 Cloudflare 单域名优选方法及 EdgeOne 添加三级域名方法和 Cloudflare Worker 优选方法</h1>
+<div class="title-right">
+    <a href="https://WslzGmzs.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/WslzGmzs/WslzGmzs.github.io/issues/2" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><hr>
+<h1>前情提要</h1>
+<blockquote>
+<p>优选方法的话其实 L 站有，而且很简单，但是<strong>都很不清晰</strong>，导致我第一次弄花了 2 个小时，有人问我就讲一下</p>
+</blockquote>
+<h1>前言</h1>
+<ul>
+<li>因为优选不知是否明确允许，并且<strong>可能有封号风险，请自行斟酌</strong></li>
+<li>我是小白，不懂原理，<strong>只讲方法</strong>，作为记录，可能具有时效性（2025年9月后请自觉判断是否可用）</li>
+<li>这里不讲 Cloudflare 的 SaaS 回源来优选，因为我觉得复杂化并且我没有成功使用过这个方法</li>
+</ul>
+<h1>需要</h1>
+<p>（这里不教怎么获取和托管，默认已经获得和会，站里的教程很详细，找不到可以问我）</p>
+<ul>
+<li>Cloudflare 账号</li>
+<li>一个域名（需要托管在 Cloudflare，支持免费的三级域名）</li>
+<li>EdgeOne 账号（这里使用国际站演示，不确保国内网站是否可以使用，可以通过谷歌来进行登录，可以不用实名和绑卡能够直接使用的）</li>
+<li>EdgeOne 的一个免费套餐（获取方法有很多，目前一个账号可以获得 5 个，绰绰有余）</li>
+</ul>
+<h1>教程</h1>
+<p><strong>从头开始，优选关键在第 6 步</strong></p>
+<ol>
+<li>打开控制台 [<a href="https://console.tencentcloud.com/edgeone/zones" rel="nofollow">服务总览 - EdgeOne - 控制台</a>] ，注意，这是国际站，和腾讯云有区别</li>
+<li>添加站点</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/6a190731-63cb-4a43-a488-668d19c0a612"><img width="1794" height="655" alt="Image" src="https://github.com/user-attachments/assets/6a190731-63cb-4a43-a488-668d19c0a612" style="max-width: 100%; height: auto; max-height: 655px;"></a></p>
+<ol start="3">
+<li>EdgeOne 是支持免费的三级域名的，不知道站里有没有人讲过（下面分两种情况）</li>
+</ol>
+<ul>
+<li>先讲购买的二级域名，例如我的 <code class="notranslate">243344.xyz</code></li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4f51f574-9397-4dfd-9eb8-bcb57828c65b"><img width="925" height="491" alt="Image" src="https://github.com/user-attachments/assets/4f51f574-9397-4dfd-9eb8-bcb57828c65b" style="max-width: 100%; height: auto; max-height: 491px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a3bcb07a-77f9-407c-b36d-0c890c641a32"><img width="1341" height="733" alt="Image" src="https://github.com/user-attachments/assets/a3bcb07a-77f9-407c-b36d-0c890c641a32" style="max-width: 100%; height: auto; max-height: 733px;"></a></p>
+<ul>
+<li>这个教程基本上是面向不备案的，备案的也不太需要优选？<strong>必须选择 CNAME！</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/c9643830-1723-4dc0-b10c-5506f0f77285"><img width="886" height="506" alt="Image" src="https://github.com/user-attachments/assets/c9643830-1723-4dc0-b10c-5506f0f77285" style="max-width: 100%; height: auto; max-height: 506px;"></a></p>
+<ul>
+<li>下面这里分成两种情况，一是使用的二级域名，就照着教程下去验证就行，二如果使用的是三级域名例如 <code class="notranslate">xxx.dpdns.org</code>，那就跳过验证，因为我已经添加过了，图片仅供演示</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/aaf79f19-9f3e-47a1-9ccb-22e633d75f53"><img width="934" height="645" alt="Image" src="https://github.com/user-attachments/assets/aaf79f19-9f3e-47a1-9ccb-22e633d75f53" style="max-width: 100%; height: auto; max-height: 645px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/73e2746f-321f-4adc-8ffc-4bd0e0098975"><img width="1206" height="333" alt="Image" src="https://github.com/user-attachments/assets/73e2746f-321f-4adc-8ffc-4bd0e0098975" style="max-width: 100%; height: auto; max-height: 333px;"></a></p>
+<ul>
+<li>不知为何，同为三级域名，<code class="notranslate">xxx.ggff.net</code> 可以过验证，<code class="notranslate">xxx.dpdns.org</code> 不行，其实，实践发现，这一步验不验证好像没什么用（还是有用的，有些情况要求验证）</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/6294bfbd-0837-4e3a-b4ca-94e1f0b38931"><img width="919" height="529" alt="Image" src="https://github.com/user-attachments/assets/6294bfbd-0837-4e3a-b4ca-94e1f0b38931" style="max-width: 100%; height: auto; max-height: 529px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ce9ec4a5-9855-449b-a663-738527cca9b2"><img width="814" height="469" alt="Image" src="https://github.com/user-attachments/assets/ce9ec4a5-9855-449b-a663-738527cca9b2" style="max-width: 100%; height: auto; max-height: 469px;"></a></p>
+<ul>
+<li>使用 <code class="notranslate">xxx.dpdns.org</code> 的话，接入 <code class="notranslate">dpdns.org</code> 即可，然后到验证那一步直接跳过</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/aa5dd7ec-4fc4-45e4-a123-4766318ab639"><img width="759" height="485" alt="Image" src="https://github.com/user-attachments/assets/aa5dd7ec-4fc4-45e4-a123-4766318ab639" style="max-width: 100%; height: auto; max-height: 485px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/318ab217-4db7-4321-9c2c-eb94ca4d1a37"><img width="940" height="608" alt="Image" src="https://github.com/user-attachments/assets/318ab217-4db7-4321-9c2c-eb94ca4d1a37" style="max-width: 100%; height: auto; max-height: 608px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/d36b3bd3-2cb0-4e0d-88c0-88c93cc1f2fa"><img width="681" height="221" alt="Image" src="https://github.com/user-attachments/assets/d36b3bd3-2cb0-4e0d-88c0-88c93cc1f2fa" style="max-width: 100%; height: auto; max-height: 221px;"></a></p>
+<ol start="4">
+<li><strong>添加域名</strong>，模板可以不选择，看自己需求，直接下一步</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/435d05d6-070c-43e6-86a7-b5c84148c604"><img width="1731" height="776" alt="Image" src="https://github.com/user-attachments/assets/435d05d6-070c-43e6-86a7-b5c84148c604" style="max-width: 100%; height: auto; max-height: 776px;"></a></p>
+<ul>
+<li>我这里讲一下我的用法（怎么添加源站）</li>
+</ul>
+<blockquote>
+<p>我是参考 [<a href="https://linux.do/t/topic/188813" rel="nofollow">[超详细教学] 教你从零开始，入坑域名、云服务器并部署 New API + Open WebUI！ - 文档共建 - LINUX DO</a>](<a href="https://linux.do/t/topic/188813" rel="nofollow">https://linux.do/t/topic/188813</a>) 这一篇帖子服务器套 Cloudflare 的 CDN 了，所以不想动了并且 EdgeOne 是xxx不敢这么放心<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5b347203-1ea1-420c-bc7b-a1a4473d05fd"><img width="764" height="106" alt="Image" src="https://github.com/user-attachments/assets/5b347203-1ea1-420c-bc7b-a1a4473d05fd" style="max-width: 100%; height: auto; max-height: 106px;"></a><br>
+网站是使用 OpenResty 反代，原本是 <code class="notranslate">api.wslz.dpdns.org</code> 就改成别名 <code class="notranslate">api2.wslz.dpdns.org</code>, 然后加速域名就可以使用 <code class="notranslate">api.wslz.dpdns.org</code> 了（其实我是想配置两个 api 地址，但是发现 new-api 好像不支持并且如果换了 L 站登录也会失效），不想这么麻烦可以直接使用 ip，参考 [<a href="https://linux.do/t/topic/876681" rel="nofollow">leaflow 部署 donehub 并使用自定义域名接入 edgeone cdn 加速 - 开发调优 - LINUX DO</a>]，不想讲太多感觉越讲越乱，看自己悟吧，实在不懂也可以给出具体的来具体分析，但是不要把公网 ip 发出来<br>
+<em>这里简单说明白了一件事情就是中间再套一层 cf 是完全可行的，双层 cdn，不过好像没什么用，说不定减速</em></p>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b63dab76-1e4f-4a9f-a0bd-43d36b4d5106"><img width="1350" height="641" alt="Image" src="https://github.com/user-attachments/assets/b63dab76-1e4f-4a9f-a0bd-43d36b4d5106" style="max-width: 100%; height: auto; max-height: 641px;"></a></p>
+<ol start="5">
+<li>验证</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/80cbf62d-6db3-4ceb-999f-9b2f6e0950dc"><img width="1409" height="670" alt="Image" src="https://github.com/user-attachments/assets/80cbf62d-6db3-4ceb-999f-9b2f6e0950dc" style="max-width: 100%; height: auto; max-height: 670px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/93a2c1d8-e8bb-4d51-a808-1fb2ab8457d0"><img width="1334" height="540" alt="Image" src="https://github.com/user-attachments/assets/93a2c1d8-e8bb-4d51-a808-1fb2ab8457d0" style="max-width: 100%; height: auto; max-height: 540px;"></a></p>
+<ul>
+<li>这时候如果使用 <code class="notranslate">xxx.dpdns.org</code> 的话，大概率要你验证域名所有权，直接验证即可，参考图片即可，不要验证 <code class="notranslate">dpdns.org</code> 的所有权，是验证 <code class="notranslate">xxx.dpdns.org</code> 的所有权，方法同上</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5bed6093-4034-430a-86ed-127e40a1016b"><img width="1075" height="699" alt="Image" src="https://github.com/user-attachments/assets/5bed6093-4034-430a-86ed-127e40a1016b" style="max-width: 100%; height: auto; max-height: 699px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/112e1bcd-3343-47fb-b8bb-e94b0cdc0607"><img width="1341" height="678" alt="Image" src="https://github.com/user-attachments/assets/112e1bcd-3343-47fb-b8bb-e94b0cdc0607" style="max-width: 100%; height: auto; max-height: 678px;"></a></p>
+<ul>
+<li>出现不安全考虑开启 HTTPS 配置，EdgeOne 的部署普遍偏慢，要 5 分钟左右，当然可能更多</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/48d84b65-2fd0-4b0f-8048-a5a516f605de"><img width="1481" height="431" alt="Image" src="https://github.com/user-attachments/assets/48d84b65-2fd0-4b0f-8048-a5a516f605de" style="max-width: 100%; height: auto; max-height: 431px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2853bd46-6976-4725-a09c-f0627ba92f5d"><img width="1014" height="734" alt="Image" src="https://github.com/user-attachments/assets/2853bd46-6976-4725-a09c-f0627ba92f5d" style="max-width: 100%; height: auto; max-height: 734px;"></a></p>
+<ol start="6">
+<li><strong>加速优选（关键，但是是最简单的一步，我也不知道为什么前面会写这么多，越写越多，想到什么就写什么）</strong><br>
+找到上一步添加在 Cloudflare 添加的 CNAME 记录，修改值为优选域名，保存即可，优选域名参考<br>
+<a href="https://www.wetest.vip" rel="nofollow">https://www.wetest.vip</a></li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/7733bb5c-e123-48de-98b9-f73a424fb0b3"><img width="1351" height="450" alt="Image" src="https://github.com/user-attachments/assets/7733bb5c-e123-48de-98b9-f73a424fb0b3" style="max-width: 100%; height: auto; max-height: 450px;"></a></p>
+<ul>
+<li>出现下面这个不用管</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a0fa8dff-551d-422f-9c1b-fd0530788a3a"><img width="543" height="263" alt="Image" src="https://github.com/user-attachments/assets/a0fa8dff-551d-422f-9c1b-fd0530788a3a" style="max-width: 100%; height: auto; max-height: 263px;"></a></p>
+<ol start="7">
+<li><strong>加速前后对比</strong>（参考，因为这个项目 worker 我优选过一次域名了，所以区别不是特别明显，建议自己尝试，通过这个我主要是解决了我服务器的域名优选，加速并且解决移动阻断的问题，而 cf worker 请看下面另外一种方法）</li>
+</ol>
+<ul>
+<li><strong>加速前</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8ea356cb-f689-4e3e-b140-12b4adc8d7f7"><img width="764" height="690" alt="Image" src="https://github.com/user-attachments/assets/8ea356cb-f689-4e3e-b140-12b4adc8d7f7" style="max-width: 100%; height: auto; max-height: 690px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/51e31451-4f4e-4796-bf3c-548848f74c0d"><img width="759" height="680" alt="Image" src="https://github.com/user-attachments/assets/51e31451-4f4e-4796-bf3c-548848f74c0d" style="max-width: 100%; height: auto; max-height: 680px;"></a></p>
+<ul>
+<li><strong>加速后</strong>（好像不是特别明显，建议自己试试，因为这个项目 worker 我优选过一次域名了）</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/07c11b18-9c16-46d0-9888-aa062dcaf615"><img width="768" height="614" alt="Image" src="https://github.com/user-attachments/assets/07c11b18-9c16-46d0-9888-aa062dcaf615" style="max-width: 100%; height: auto; max-height: 614px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4c64e3db-414e-4350-b7bb-5fb6571ab276"><img width="761" height="631" alt="Image" src="https://github.com/user-attachments/assets/4c64e3db-414e-4350-b7bb-5fb6571ab276" style="max-width: 100%; height: auto; max-height: 631px;"></a></p>
+<ol start="8">
+<li>Cloudflare Worker 域名优选（这个方法仅对 Worker 有效，page 无效，不过 page 好像没被墙？）</li>
+</ol>
+<blockquote>
+<p>qaz741wsd856:<br>
+page 也能优选，只要不把 page 的域名托管到 cf 就行，方法跟 edgeone 的 cname 接入一样。</p>
+</blockquote>
+<ul>
+<li>先部署一个 Cloudflare Worker 项目</li>
+<li>可以在自定义域名里添加域名路由，这里推荐到域名设置里进行</li>
+<li>先在 dns 添加记录，优选域名这里看 [<a href="https://www.wetest.vip/" rel="nofollow">微测网 - 全球云服务监测平台</a>]</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b0be3400-1743-4c50-b1c7-a0ffc8ff177b"><img width="1354" height="518" alt="Image" src="https://github.com/user-attachments/assets/b0be3400-1743-4c50-b1c7-a0ffc8ff177b" style="max-width: 100%; height: auto; max-height: 518px;"></a></p>
+<ul>
+<li><strong>然后</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/53171e0a-dfc3-4747-ae0e-cd8951038505"><img width="1771" height="600" alt="Image" src="https://github.com/user-attachments/assets/53171e0a-dfc3-4747-ae0e-cd8951038505" style="max-width: 100%; height: auto; max-height: 600px;"></a></p>
+<ul>
+<li><strong>记得末尾要加</strong><code class="notranslate">/*</code></li>
+</ul>
+<h1>最后</h1>
+<p>感谢感谢感谢所有对我有帮助的帖子和大佬</p>
+<p>我也不知道为什么这个帖子写了 2 个半小时，越写越详细，我部署也才研究 1 个钟</p>
+<h1>配置补充</h1>
+<ul>
+<li>[<a href="https://linux.do/t/topic/923049" rel="nofollow">解决 EdgeOne 554 回源超时问题 - 开发调优 - LINUX DO</a>](<a href="https://linux.do/t/topic/923049" rel="nofollow">https://linux.do/t/topic/923049</a>)</li>
+<li>[<a href="https://linux.do/t/topic/794089" rel="nofollow">腾讯云 EdgeOne 免费加速服务使用经验：从缓存到 Web 防护的配置总结 - 开发调优 - LINUX DO</a>](<a href="https://linux.do/t/topic/794089" rel="nofollow">https://linux.do/t/topic/794089</a>)</li>
+<li>[<a href="https://linux.do/t/topic/822160" rel="nofollow">分享一个 edgeone 加速 openwebui 的缓存规则 - 开发调优 - LINUX DO</a>](<a href="https://linux.do/t/topic/822160" rel="nofollow">https://linux.do/t/topic/822160</a>)</li>
+<li>[<a href="https://linux.do/t/topic/892763" rel="nofollow">[最终完成] 配置 edgeone 边缘函数及 nginx 反代增加 etag 机制，加快 openwebui 的访问速度 - 开发调优 - LINUX DO</a>](<a href="https://linux.do/t/topic/892763" rel="nofollow">https://linux.do/t/topic/892763</a>)</li>
+</ul></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://WslzGmzs.github.io">𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行 "+diffDay+" 天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.disabled=true;
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","WslzGmzs/WslzGmzs.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>
