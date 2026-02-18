@@ -1,5 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 14:40:42 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>Supabase 多模型 API 安全代理</title><link>https://WslzGmzs.github.io/post/Supabase%20-duo-mo-xing-%20API%20-an-quan-dai-li.html</link><description>## 前情提要：
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 14:46:39 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>Cloudflare Rocket Loader 有可能会导致页面 JavaScript 样式加载失败</title><link>https://WslzGmzs.github.io/post/Cloudflare%20Rocket%20Loader%20-you-ke-neng-hui-dao-zhi-ye-mian-%20JavaScript%20-yang-shi-jia-zai-shi-bai.html</link><description>RT, 今天排查了一下为什么使用我的主域名会出现这种问题，使用一些没配置的域名就不会出现这个问题，我就怀疑是 cloudflare 的配置问题，全网搜索了一下，没找到解决办法，自己排查出来了，给大家提个醒，当然也有可能是我配置错误，不太明白为什么会出现这个原因
+
+项目是这个，一些开源项目部署也会导致这个问题: [Grok2API - 修复视频生成、支持动态头部 - 开发调优 - LINUX DO](https://linux.do/t/topic/1101201)
+
+**没开启前**
+
+---
+
+&lt;img width='1099' height='589' alt='Image' src='https://github.com/user-attachments/assets/e3e36f9d-d071-48d9-b336-5e2a969a2309' /&gt;
+
+---
+
+**开启后**
+
+---
+
+&lt;img width='690' height='270' alt='Image' src='https://github.com/user-attachments/assets/554b2193-bb99-464b-b424-c9932592c1bb' /&gt;
+
+---
+
+帖子写完了，发现其实有类似的，不过没搜索到: [如果 Cloudflare 的 Rocket Loader 让你的 Fuclaude 网站在 Chrome 上挂了（Safari 却能用） - 开发调优 - LINUX DO](https://linux.do/t/topic/457981)
+
+可以在 Dashboard 里面写规则让其只在特定页面开启
+
+---
+
+&lt;img width='1358' height='720' alt='Image' src='https://github.com/user-attachments/assets/b7f644b2-953b-4814-98b4-382cbf75ac8d' /&gt;
+
+---
+。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/Cloudflare%20Rocket%20Loader%20-you-ke-neng-hui-dao-zhi-ye-mian-%20JavaScript%20-yang-shi-jia-zai-shi-bai.html</guid><pubDate>Wed, 18 Feb 2026 14:46:12 +0000</pubDate></item><item><title>Supabase 多模型 API 安全代理</title><link>https://WslzGmzs.github.io/post/Supabase%20-duo-mo-xing-%20API%20-an-quan-dai-li.html</link><description>## 前情提要：
 
 询问了 T 佬关于部署 GPT-Load 设置动态代理之类，然后陷入了误区，一直想着给容器配置代理，现在终于找到方法：给 api 代理不就行了，代码质量不保证，有大佬更好的话可以发出来迭代一下
 
