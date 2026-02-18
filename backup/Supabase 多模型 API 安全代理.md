@@ -18,7 +18,7 @@
 
 > [Deno 多模型 API 代理修改 2.0 版 - 开发调优 / 开发调优，Lv1 - LINUX DO](https://linux.do/t/topic/685216)
 
-[【T 佬】Deno 多代理防封脚本！不过还需要时间验证。](https://linux.do/t/topic/726100/41) 
+> [【T 佬】Deno 多代理防封脚本！不过还需要时间验证。](https://linux.do/t/topic/726100/41) 
 > // Supabase Edge Functions API 代理 - 独立版本 // 一个简单、安全的 HTTPS API 反向代理，基于 Supabase Edge Functions 构建 /// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" /> // CORS 配置 con…
 
 > [Deno Deploy 迁移到 Supabase Edge Function 全指北 - 文档共建 / 文档共建，Lv1 - LINUX DO](https://linux.do/t/topic/726205)
