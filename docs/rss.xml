@@ -1,5 +1,47 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 10:05:28 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>浅讲 EdgeOne 和 Cloudflare 单域名优选方法及 EdgeOne 添加三级域名方法和 Cloudflare Worker 优选方法</title><link>https://WslzGmzs.github.io/post/qian-jiang-%20EdgeOne%20-he-%20Cloudflare%20-dan-yu-ming-you-xuan-fang-fa-ji-%20EdgeOne%20-tian-jia-san-ji-yu-ming-fang-fa-he-%20Cloudflare%20Worker%20-you-xuan-fang-fa.html</link><description>------------------------------------------------------------------------
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 14:10:16 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>解决 EdgeOne 554 回源超时问题</title><link>https://WslzGmzs.github.io/post/jie-jue-%20EdgeOne%20554%20-hui-yuan-chao-shi-wen-ti.html</link><description>看了一下**站里**和**搜索引擎**，都没有找到相关解决方案，但是有相关案例
+
+&gt; 我看到佬你套了一层 EdgeOne，EdgeOne 发生 554 是因为 EdgeOne 请求目标服务器，默认 16 秒超时就会触发
+
+然后花了**一个小时**，好吧其实故事挺曲折，解决方法是提工单找的 _（主要是在等工单）_
+
+# 前情提要
+
+&gt; 2025-9-1-2:00- 尝试使用 edgeone 优选域名以解决移动无法访问的问题，实用性有待测试
+
+优选方法的话其实 l 站有，而且很简单，但是都很不清晰，导致我第一次弄花了 2 个小时，有人问的话我就讲一下，没人的话我就当人人都会了
+
+# 今天
+
+看到这个贴子  
+[[还是觉得千问和豆包生图能力大于香蕉 - 搞七捻三 / 搞七捻三，Lv1 - LINUX DO](https://linux.do/t/topic/922501)](https://linux.do/t/topic/922501)
+
+于是使用贴子提示词去 cherry 生成，使用的 [https://linux.do/t/topic/442610](https://linux.do/t/topic/442610)  
+之前可以用的，但是今天不行，我以为失效了，一直返回  
+**554 status code (no body)**  
+但是试了试官网可以，于是闹出笑话
+
+&gt; 佬，今天试了试，生图是不是又不行了？
+
+# 发现问题
+
+&gt; 突然想起一件事，昨天给 new-api 套了 edgeone 的 cdn 优选，可能是这个问题，我排查一下
+
+**原因是因为生成图片时间太长导致超时了**
+
+# 解决方案
+
+### 依据
+
+[[回源超时时间](https://www.tencentcloud.com/zh/document/product/1145/63618?has_map=2)](https://www.tencentcloud.com/zh/document/product/1145/63618?has_map=2)
+
+### 实际步骤
+
+&lt;img width='1704' height='699' alt='Image' src='https://github.com/user-attachments/assets/f78eaaac-11dc-4f96-8271-ba7d84c900b4' /&gt;
+
+&lt;img width='274' height='84' alt='Image' src='https://github.com/user-attachments/assets/0987a72f-daf9-49cf-8a1e-83b57a8baa32' /&gt;
+
+&lt;img width='1403' height='548' alt='Image' src='https://github.com/user-attachments/assets/b753c310-2456-413d-9ec5-15e847d37798' /&gt;。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/jie-jue-%20EdgeOne%20554%20-hui-yuan-chao-shi-wen-ti.html</guid><pubDate>Wed, 18 Feb 2026 14:09:45 +0000</pubDate></item><item><title>浅讲 EdgeOne 和 Cloudflare 单域名优选方法及 EdgeOne 添加三级域名方法和 Cloudflare Worker 优选方法</title><link>https://WslzGmzs.github.io/post/qian-jiang-%20EdgeOne%20-he-%20Cloudflare%20-dan-yu-ming-you-xuan-fang-fa-ji-%20EdgeOne%20-tian-jia-san-ji-yu-ming-fang-fa-he-%20Cloudflare%20Worker%20-you-xuan-fang-fa.html</link><description>------------------------------------------------------------------------
 
 # 前情提要
 
