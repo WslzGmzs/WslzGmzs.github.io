@@ -1,5 +1,94 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 14:46:39 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>Cloudflare Rocket Loader 有可能会导致页面 JavaScript 样式加载失败</title><link>https://WslzGmzs.github.io/post/Cloudflare%20Rocket%20Loader%20-you-ke-neng-hui-dao-zhi-ye-mian-%20JavaScript%20-yang-shi-jia-zai-shi-bai.html</link><description>RT, 今天排查了一下为什么使用我的主域名会出现这种问题，使用一些没配置的域名就不会出现这个问题，我就怀疑是 cloudflare 的配置问题，全网搜索了一下，没找到解决办法，自己排查出来了，给大家提个醒，当然也有可能是我配置错误，不太明白为什么会出现这个原因
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 15:13:31 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>强迫症的 New-API 聚合配置</title><link>https://WslzGmzs.github.io/post/qiang-po-zheng-de-%20New-API%20-ju-he-pei-zhi.html</link><description>&gt; 一开始天天添加 api 地址，加 key,cherry studio 添加的渠道都 2，30 个了，而且使用起来不方便，有时候对接其它工具换来换去很麻烦，就想着部署一个 new-api 之类的中转聚合
+
+# 手把手来（但是不包括部署 new-api 这种事情，站里有很多很多很多）
+## 1. 添加渠道（模型重定向教程），以 T 佬的为例子
+
+---
+
+&lt;img width='294' height='746' alt='Image' src='https://github.com/user-attachments/assets/b61c6d6d-f03c-44a0-85ef-2e27c1a88662' /&gt;
+
+---
+
+&lt;img width='1513' height='604' alt='Image' src='https://github.com/user-attachments/assets/5b65c960-8a7e-4b2b-80d8-4a57215db319' /&gt;
+
+---
+
+ 默认是 OpenAI 格式，不要改，除非你知道你在干什么！
+ 名字随意，选择你喜欢的，比如像我一样，叫【公益】T 佬
+ 然后密钥和 API 地址要填对应
+
+ **然后这里有两个选择:**
+- 1）像我一样，先在 GPT-load 套一层，然后用 GPT-load 的代理地址和代理密钥，但是完全没有必要，因为我当时还没有部署 New-API 所以才这么使用，因为是聚合公益往往是一个 key 的，所以没必要这么使用，当然这样可能逻辑一套一套的，可能好用？（麻烦）
+- 2）直接使用例如 T 佬的 API 地址和自己创建 / 领取的密钥，组织不用管
+
+---
+
+&lt;img width='701' height='553' alt='Image' src='https://github.com/user-attachments/assets/66006742-7f1a-4c43-8d69-8eeee7129e5c' /&gt;
+
+---
+
+&lt;img width='713' height='263' alt='Image' src='https://github.com/user-attachments/assets/10cef1ba-87e2-4000-a5db-942148ee4f09' /&gt;
+
+---
+
+ **使用默认 OpenAI 格式，API 地址不要带 /v1/chat/completions, 它会自动补全，或者你使用 #号放在最后面来禁止自动补全**
+- 正常：
+```
+https://tbai.xin
+```
+- 或者（对于非标准v1格式有需要）：
+```
+https://tbai.xin/v1/chat/completions#
+```
+
+ 然后点击获取模型列表，获取不了的前面配置肯定有错误
+
+---
+
+&lt;img width='721' height='271' alt='Image' src='https://github.com/user-attachments/assets/462fa81e-376e-4984-8996-2bccff8b6a2a' /&gt;
+
+---
+
+### 添加模型
+
+---
+
+&lt;img width='1130' height='529' alt='Image' src='https://github.com/user-attachments/assets/847d22e8-6b71-4747-a3e8-9960136affd5' /&gt;
+
+---
+
+### 然后点击复制所有模型
+
+---
+
+&lt;img width='635' height='110' alt='Image' src='https://github.com/user-attachments/assets/5f4ecabe-df65-4807-b1f3-c33802389560' /&gt;
+
+---
+
+然后打开你的 AI 软件，使用下面提示词，删除中文中括号本身和里面的全部内容，粘贴刚才复制的内容，我是使用 Gemini-2.5-pro 生成的，没有出错过，添加前缀tbphp/ 可以修改为你想要的内容，例如：`添加前缀Openrouter/ 和去除:free`
+
+```
+给这些模型
+【删除中文中括号本身和里面的全部内容】
+按照下面格式重定向名称，左边为重定向名称，右边为原来名称，统一为添加前缀tbphp/
+{
+  'OpenAI/gpt-3.5-turbo': 'gpt-3.5-turbo',
+  'field_1': '',
+  'field_2': '',
+  'field_3': ''
+}
+最后再把重定向后的模型名称以,分割输出给我，用代码块包裹
+```
+
+**或者naruto jiang佬的提示词**
+
+```
+输入模型列表：
+【删除中文中括号本身和里面的全部内容】
+重定向规则：
+
+按照“厂商/标准模型名”格式重定向名称，左边为重定向后的名称，右边为原来名称。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/qiang-po-zheng-de-%20New-API%20-ju-he-pei-zhi.html</guid><pubDate>Wed, 18 Feb 2026 15:12:59 +0000</pubDate></item><item><title>Cloudflare Rocket Loader 有可能会导致页面 JavaScript 样式加载失败</title><link>https://WslzGmzs.github.io/post/Cloudflare%20Rocket%20Loader%20-you-ke-neng-hui-dao-zhi-ye-mian-%20JavaScript%20-yang-shi-jia-zai-shi-bai.html</link><description>RT, 今天排查了一下为什么使用我的主域名会出现这种问题，使用一些没配置的域名就不会出现这个问题，我就怀疑是 cloudflare 的配置问题，全网搜索了一下，没找到解决办法，自己排查出来了，给大家提个醒，当然也有可能是我配置错误，不太明白为什么会出现这个原因
 
 项目是这个，一些开源项目部署也会导致这个问题: [Grok2API - 修复视频生成、支持动态头部 - 开发调优 - LINUX DO](https://linux.do/t/topic/1101201)
 
