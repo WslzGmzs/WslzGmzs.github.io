@@ -25,7 +25,7 @@
 <meta property="og:url" content="https://WslzGmzs.github.io/post/Supabase%20-duo-mo-xing-%20API%20-an-quan-dai-li.html">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/200838321?v=4">
 <title>Supabase 多模型 API 安全代理</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -120,233 +120,232 @@ import { serve } from "<a href="https://deno.land/std/http/server.ts" rel="nofol
 <blockquote>
 <p><a href="https://linux.do/t/topic/726205" rel="nofollow">Deno Deploy 迁移到 Supabase Edge Function 全指北 - 文档共建 / 文档共建，Lv1 - LINUX DO</a></p>
 </blockquote>
-<pre lang="ts" class="notranslate"><code class="notranslate">import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-// 1. API 代理映射表
-const proxies = {
-  discord: "discord.com/api",
-  telegram: "api.telegram.org",
-  httpbin: "httpbin.org",
-  openai: "api.openai.com",
-  claude: "api.anthropic.com",
-  gemini: "generativelanguage.googleapis.com",
-  gemininothink: "generativelanguage.googleapis.com",
-  meta: "www.meta.ai/api",
-  groq: "api.groq.com/openai",
-  xai: "api.x.ai",
-  cohere: "api.cohere.ai",
-  huggingface: "api-inference.huggingface.co",
-  together: "api.together.xyz",
-  novita: "api.novita.ai",
-  portkey: "api.portkey.ai",
-  fireworks: "api.fireworks.ai",
-  targon: "api.targon.com",
-  openrouter: "openrouter.ai/api"
-};
-// 2. 增强的 Header 黑名单
-const BlacklistedHeaders = new Set([
-  "cf-connecting-ip",
-  "cf-ipcountry",
-  "cf-ray",
-  "cf-visitor",
-  "cf-worker",
-  "cdn-loop",
-  "cf-ew-via",
-  "baggage",
-  "sb-request-id",
-  "x-amzn-trace-id",
-  "x-forwarded-for",
-  "x-forwarded-host",
-  "x-forwarded-proto",
-  "x-forwarded-server",
-  "x-real-ip",
-  "x-original-host",
-  "forwarded",
-  "via",
-  "referer",
-  "x-request-id",
-  "x-correlation-id",
-  "x-trace-id"
-]);
-// 3. 日志记录辅助函数
-function logRequest(method, pathname, targetUrl, status) {
-  const timestamp = new Date().toISOString();
-  const statusInfo = status ? ` [${status}]` : '';
-  const target = targetUrl ? ` -&gt; ${targetUrl}` : '';
-  console.log(`[${timestamp}] ${method} ${pathname}${target}${statusInfo}`);
-}
-// 4. 错误类型识别函数
-function categorizeError(error) {
-  const errorMessage = error.message.toLowerCase();
-  if (error.name === 'AbortError' || errorMessage.includes('timeout')) {
-    return {
-      type: 'TIMEOUT',
-      message: 'Request timeout - the target service took too long to respond',
-      status: 504
-    };
-  }
-  if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
-    return {
-      type: 'NETWORK',
-      message: 'Network error - unable to reach the target service',
-      status: 502
-    };
-  }
-  if (errorMessage.includes('dns') || errorMessage.includes('name resolution')) {
-    return {
-      type: 'DNS',
-      message: 'DNS resolution failed - unable to resolve target hostname',
-      status: 502
-    };
-  }
-  if (errorMessage.includes('connection refused') || errorMessage.includes('connect')) {
-    return {
-      type: 'CONNECTION',
-      message: 'Connection refused - target service is not accepting connections',
-      status: 503
-    };
-  }
-  if (errorMessage.includes('ssl') || errorMessage.includes('tls') || errorMessage.includes('certificate')) {
-    return {
-      type: 'SSL',
-      message: 'SSL/TLS error - certificate or encryption issue',
-      status: 502
-    };
-  }
-  return {
-    type: 'UNKNOWN',
-    message: `Unexpected error: ${error.message}`,
-    status: 500
-  };
-}
-// 5. 创建标准错误响应
-function createErrorResponse(message, status, details) {
-  const errorBody = JSON.stringify({
-    error: message,
-    status,
-    timestamp: new Date().toISOString(),
-    ...details &amp;&amp; {
+<div class="highlight highlight-source-ts"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-kos">{</span> <span class="pl-s1">serve</span> <span class="pl-kos">}</span> <span class="pl-k">from</span> <span class="pl-s">"https://deno.land/std@0.168.0/http/server.ts"</span><span class="pl-kos">;</span>
+<span class="pl-c">// 1. API 代理映射表</span>
+<span class="pl-k">const</span> <span class="pl-s1">proxies</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span>
+  <span class="pl-c1">discord</span>: <span class="pl-s">"discord.com/api"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">telegram</span>: <span class="pl-s">"api.telegram.org"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">httpbin</span>: <span class="pl-s">"httpbin.org"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">openai</span>: <span class="pl-s">"api.openai.com"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">claude</span>: <span class="pl-s">"api.anthropic.com"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">gemini</span>: <span class="pl-s">"generativelanguage.googleapis.com"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">gemininothink</span>: <span class="pl-s">"generativelanguage.googleapis.com"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">meta</span>: <span class="pl-s">"www.meta.ai/api"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">groq</span>: <span class="pl-s">"api.groq.com/openai"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">xai</span>: <span class="pl-s">"api.x.ai"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">cohere</span>: <span class="pl-s">"api.cohere.ai"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">huggingface</span>: <span class="pl-s">"api-inference.huggingface.co"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">together</span>: <span class="pl-s">"api.together.xyz"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">novita</span>: <span class="pl-s">"api.novita.ai"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">portkey</span>: <span class="pl-s">"api.portkey.ai"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">fireworks</span>: <span class="pl-s">"api.fireworks.ai"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">targon</span>: <span class="pl-s">"api.targon.com"</span><span class="pl-kos">,</span>
+  <span class="pl-c1">openrouter</span>: <span class="pl-s">"openrouter.ai/api"</span>
+<span class="pl-kos">}</span><span class="pl-kos">;</span>
+<span class="pl-c">// 2. 增强的 Header 黑名单</span>
+<span class="pl-k">const</span> <span class="pl-v">BlacklistedHeaders</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Set</span><span class="pl-kos">(</span><span class="pl-kos">[</span>
+  <span class="pl-s">"cf-connecting-ip"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"cf-ipcountry"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"cf-ray"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"cf-visitor"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"cf-worker"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"cdn-loop"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"cf-ew-via"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"baggage"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"sb-request-id"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-amzn-trace-id"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-forwarded-for"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-forwarded-host"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-forwarded-proto"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-forwarded-server"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-real-ip"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-original-host"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"forwarded"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"via"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"referer"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-request-id"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-correlation-id"</span><span class="pl-kos">,</span>
+  <span class="pl-s">"x-trace-id"</span>
+<span class="pl-kos">]</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-c">// 3. 日志记录辅助函数</span>
+<span class="pl-k">function</span> <span class="pl-en">logRequest</span><span class="pl-kos">(</span><span class="pl-s1">method</span><span class="pl-kos">,</span> <span class="pl-s1">pathname</span><span class="pl-kos">,</span> <span class="pl-s1">targetUrl</span><span class="pl-kos">,</span> <span class="pl-s1">status</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">timestamp</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Date</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">toISOString</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-k">const</span> <span class="pl-s1">statusInfo</span> <span class="pl-c1">=</span> <span class="pl-s1">status</span> ? <span class="pl-s">` [<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">status</span><span class="pl-kos">}</span></span>]`</span> : <span class="pl-s">''</span><span class="pl-kos">;</span>
+  <span class="pl-k">const</span> <span class="pl-s1">target</span> <span class="pl-c1">=</span> <span class="pl-s1">targetUrl</span> ? <span class="pl-s">` -&gt; <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetUrl</span><span class="pl-kos">}</span></span>`</span> : <span class="pl-s">''</span><span class="pl-kos">;</span>
+  <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`[<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">timestamp</span><span class="pl-kos">}</span></span>] <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">method</span><span class="pl-kos">}</span></span> <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">pathname</span><span class="pl-kos">}</span></span><span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">target</span><span class="pl-kos">}</span></span><span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">statusInfo</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span>
+<span class="pl-c">// 4. 错误类型识别函数</span>
+<span class="pl-k">function</span> <span class="pl-en">categorizeError</span><span class="pl-kos">(</span><span class="pl-s1">error</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">errorMessage</span> <span class="pl-c1">=</span> <span class="pl-s1">error</span><span class="pl-kos">.</span><span class="pl-c1">message</span><span class="pl-kos">.</span><span class="pl-en">toLowerCase</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">error</span><span class="pl-kos">.</span><span class="pl-c1">name</span> <span class="pl-c1">===</span> <span class="pl-s">'AbortError'</span> <span class="pl-c1">||</span> <span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'timeout'</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">type</span>: <span class="pl-s">'TIMEOUT'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">message</span>: <span class="pl-s">'Request timeout - the target service took too long to respond'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">status</span>: <span class="pl-c1">504</span>
+    <span class="pl-kos">}</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'network'</span><span class="pl-kos">)</span> <span class="pl-c1">||</span> <span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'fetch'</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">type</span>: <span class="pl-s">'NETWORK'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">message</span>: <span class="pl-s">'Network error - unable to reach the target service'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">status</span>: <span class="pl-c1">502</span>
+    <span class="pl-kos">}</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'dns'</span><span class="pl-kos">)</span> <span class="pl-c1">||</span> <span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'name resolution'</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">type</span>: <span class="pl-s">'DNS'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">message</span>: <span class="pl-s">'DNS resolution failed - unable to resolve target hostname'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">status</span>: <span class="pl-c1">502</span>
+    <span class="pl-kos">}</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'connection refused'</span><span class="pl-kos">)</span> <span class="pl-c1">||</span> <span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'connect'</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">type</span>: <span class="pl-s">'CONNECTION'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">message</span>: <span class="pl-s">'Connection refused - target service is not accepting connections'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">status</span>: <span class="pl-c1">503</span>
+    <span class="pl-kos">}</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'ssl'</span><span class="pl-kos">)</span> <span class="pl-c1">||</span> <span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'tls'</span><span class="pl-kos">)</span> <span class="pl-c1">||</span> <span class="pl-s1">errorMessage</span><span class="pl-kos">.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">'certificate'</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">type</span>: <span class="pl-s">'SSL'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">message</span>: <span class="pl-s">'SSL/TLS error - certificate or encryption issue'</span><span class="pl-kos">,</span>
+      <span class="pl-c1">status</span>: <span class="pl-c1">502</span>
+    <span class="pl-kos">}</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">return</span> <span class="pl-kos">{</span>
+    <span class="pl-c1">type</span>: <span class="pl-s">'UNKNOWN'</span><span class="pl-kos">,</span>
+    <span class="pl-c1">message</span>: <span class="pl-s">`Unexpected error: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">error</span><span class="pl-kos">.</span><span class="pl-c1">message</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">,</span>
+    <span class="pl-c1">status</span>: <span class="pl-c1">500</span>
+  <span class="pl-kos">}</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span>
+<span class="pl-c">// 5. 创建标准错误响应</span>
+<span class="pl-k">function</span> <span class="pl-en">createErrorResponse</span><span class="pl-kos">(</span><span class="pl-s1">message</span><span class="pl-kos">,</span> <span class="pl-s1">status</span><span class="pl-kos">,</span> <span class="pl-s1">details</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">errorBody</span> <span class="pl-c1">=</span> <span class="pl-c1">JSON</span><span class="pl-kos">.</span><span class="pl-en">stringify</span><span class="pl-kos">(</span><span class="pl-kos">{</span>
+    <span class="pl-c1">error</span>: <span class="pl-s1">message</span><span class="pl-kos">,</span>
+    status<span class="pl-kos">,</span>
+    <span class="pl-c1">timestamp</span>: <span class="pl-k">new</span> <span class="pl-v">Date</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">toISOString</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+    ...<span class="pl-s1">details</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-kos">{</span>
       details
-    }
-  });
-  return new Response(errorBody, {
-    status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*"
-    }
-  });
-}
-// 6. 主服务函数
-serve(async (req)=&gt;{
-  const url = new URL(req.url);
-  const { pathname, search } = url;
-  logRequest(req.method, pathname);
-  // OPTIONS 请求处理
-  if (req.method === "OPTIONS") {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, anthropic-version, x-api-key"
-      }
-    });
-  }
-  // 恢复到第一版的路径解析逻辑
-  const pathParts = pathname.split("/");
-  // 验证路径格式（适配第一版逻辑）
-  // 假设格式为 /&lt;base_path&gt;/&lt;service_alias&gt;/...  (e.g., /api/openai/...)
-  // pathParts will be ['', &lt;base_path&gt;, &lt;service_alias&gt;, ...]
-  if (pathParts.length &lt; 3) {
-    return createErrorResponse("Invalid path format. Expected format like: /api/{service}/{path}", 400, `Available services: ${Object.keys(proxies).join(', ')}`);
-  }
-  const targetAlias = pathParts[2]; // 获取服务别名
-  const targetHost = proxies[targetAlias];
-  console.log(`服务别名: ${targetAlias}, 目标主机: ${targetHost}`);
-  // 验证服务映射
-  if (!targetHost) {
-    console.error(`服务映射未找到: 客户端尝试访问别名 '${targetAlias}'`);
-    return createErrorResponse(`Service alias '${targetAlias}' not found`, 404, `Available services: ${Object.keys(proxies).join(', ')}`);
-  }
-  // 构建目标路径和URL
-  const targetPath = pathParts.slice(3).join("/");
-  const targetUrl = `https://${targetHost}/${targetPath}${search}`;
-  console.log(`目标路径: ${targetPath}`);
-  console.log(`最终目标URL: ${targetUrl}`);
-  try {
-    // 处理请求头
-    const forwardedHeaders = new Headers();
-    for (const [key, value] of req.headers.entries()){
-      const lowerKey = key.toLowerCase();
-      if (!BlacklistedHeaders.has(lowerKey) &amp;&amp; !lowerKey.startsWith("sec-ch-ua")) {
-        forwardedHeaders.set(key, value);
-      }
-    }
-    // 设置必要的headers
-    forwardedHeaders.set("Host", targetHost);
-    forwardedHeaders.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
-    // Claude API 特殊处理
-    if (targetAlias === "claude" &amp;&amp; !forwardedHeaders.has("anthropic-version")) {
-      forwardedHeaders.set("anthropic-version", "2023-06-01");
-    }
-    // 处理请求体
-    let requestBody = null;
-    if (req.method !== "GET" &amp;&amp; req.method !== "HEAD") {
-      // Gemini NoThink 特殊处理
-      if (targetAlias === "gemininothink" &amp;&amp; req.method === "POST" &amp;&amp; req.headers.get("content-type")?.includes("application/json")) {
-        try {
-          const bodyText = await req.text();
-          const bodyJson = JSON.parse(bodyText);
-          bodyJson.generationConfig = {
-            ...bodyJson.generationConfig || {},
-            thinkingConfig: {
-              thinkingBudget: 0
-            }
-          };
-          requestBody = JSON.stringify(bodyJson);
-          forwardedHeaders.set("content-type", "application/json");
-        } catch (e) {
-          console.error(`修改gemininothink请求体失败: ${e.message}`);
-          return createErrorResponse("Invalid JSON format in request body", 400);
-        }
-      } else {
-        requestBody = req.body;
-      }
-    }
-    console.log(`发起请求到: ${targetUrl}`);
-    // 发起代理请求
-    const apiResponse = await fetch(targetUrl, {
-      method: req.method,
-      headers: forwardedHeaders,
-      body: requestBody,
-      redirect: "manual"
-    });
-    console.log(`API响应状态: ${apiResponse.status}`);
-    logRequest(req.method, pathname, targetUrl, apiResponse.status);
-    // 设置CORS响应头
-    const responseHeaders = new Headers(apiResponse.headers);
-    responseHeaders.set("Access-Control-Allow-Origin", "*");
-    responseHeaders.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH");
-    responseHeaders.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, anthropic-version, x-api-key");
-    return new Response(apiResponse.body, {
-      status: apiResponse.status,
-      headers: responseHeaders
-    });
-  } catch (error) {
-    // 详细的错误分类和日志记录
-    const errorInfo = categorizeError(error);
-    console.error(`[${errorInfo.type}] API代理请求失败:`);
-    console.error(`  目标URL: ${targetUrl}`);
-    console.error(`  错误详情: ${error.message}`);
-    console.error(`  错误堆栈: ${error.stack}`);
-    logRequest(req.method, pathname, targetUrl, errorInfo.status);
-    return createErrorResponse(errorInfo.message, errorInfo.status, `Error type: ${errorInfo.type}`);
-  }
-});
-console.log("🚀 API代理服务器已启动");
-console.log(`📋 支持的服务: ${Object.keys(proxies).join(', ')}`);
-console.log("📖 使用方法: /&lt;base_path&gt;/{service}/{path} (例如: /api/openai/v1/chat/completions)");
-</code></pre>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-v">Response</span><span class="pl-kos">(</span><span class="pl-s1">errorBody</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+    status<span class="pl-kos">,</span>
+    <span class="pl-c1">headers</span>: <span class="pl-kos">{</span>
+      <span class="pl-s">"Content-Type"</span>: <span class="pl-s">"application/json; charset=utf-8"</span><span class="pl-kos">,</span>
+      <span class="pl-s">"Access-Control-Allow-Origin"</span>: <span class="pl-s">"*"</span>
+    <span class="pl-kos">}</span>
+  <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-kos">}</span>
+<span class="pl-c">// 6. 主服务函数</span>
+<span class="pl-en">serve</span><span class="pl-kos">(</span><span class="pl-k">async</span> <span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">)</span><span class="pl-c1">=&gt;</span><span class="pl-kos">{</span>
+  <span class="pl-k">const</span> <span class="pl-s1">url</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-c1">URL</span><span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">url</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-k">const</span> <span class="pl-kos">{</span> pathname<span class="pl-kos">,</span> search <span class="pl-kos">}</span> <span class="pl-c1">=</span> <span class="pl-s1">url</span><span class="pl-kos">;</span>
+  <span class="pl-en">logRequest</span><span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span><span class="pl-kos">,</span> <span class="pl-s1">pathname</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-c">// OPTIONS 请求处理</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span> <span class="pl-c1">===</span> <span class="pl-s">"OPTIONS"</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-v">Response</span><span class="pl-kos">(</span><span class="pl-c1">null</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">status</span>: <span class="pl-c1">204</span><span class="pl-kos">,</span>
+      <span class="pl-c1">headers</span>: <span class="pl-kos">{</span>
+        <span class="pl-s">"Access-Control-Allow-Origin"</span>: <span class="pl-s">"*"</span><span class="pl-kos">,</span>
+        <span class="pl-s">"Access-Control-Allow-Methods"</span>: <span class="pl-s">"GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH"</span><span class="pl-kos">,</span>
+        <span class="pl-s">"Access-Control-Allow-Headers"</span>: <span class="pl-s">"Content-Type, Authorization, X-Requested-With, anthropic-version, x-api-key"</span>
+      <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-c">// 恢复到第一版的路径解析逻辑</span>
+  <span class="pl-k">const</span> <span class="pl-s1">pathParts</span> <span class="pl-c1">=</span> <span class="pl-s1">pathname</span><span class="pl-kos">.</span><span class="pl-en">split</span><span class="pl-kos">(</span><span class="pl-s">"/"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-c">// 验证路径格式（适配第一版逻辑）</span>
+  <span class="pl-c">// 假设格式为 /&lt;base_path&gt;/&lt;service_alias&gt;/...  (e.g., /api/openai/...)</span>
+  <span class="pl-c">// pathParts will be ['', &lt;base_path&gt;, &lt;service_alias&gt;, ...]</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">pathParts</span><span class="pl-kos">.</span><span class="pl-c1">length</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">3</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-k">return</span> <span class="pl-en">createErrorResponse</span><span class="pl-kos">(</span><span class="pl-s">"Invalid path format. Expected format like: /api/{service}/{path}"</span><span class="pl-kos">,</span> <span class="pl-c1">400</span><span class="pl-kos">,</span> <span class="pl-s">`Available services: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-v">Object</span><span class="pl-kos">.</span><span class="pl-en">keys</span><span class="pl-kos">(</span><span class="pl-s1">proxies</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">join</span><span class="pl-kos">(</span><span class="pl-s">', '</span><span class="pl-kos">)</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-k">const</span> <span class="pl-s1">targetAlias</span> <span class="pl-c1">=</span> <span class="pl-s1">pathParts</span><span class="pl-kos">[</span><span class="pl-c1">2</span><span class="pl-kos">]</span><span class="pl-kos">;</span> <span class="pl-c">// 获取服务别名</span>
+  <span class="pl-k">const</span> <span class="pl-s1">targetHost</span> <span class="pl-c1">=</span> <span class="pl-s1">proxies</span><span class="pl-kos">[</span><span class="pl-s1">targetAlias</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+  <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`服务别名: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetAlias</span><span class="pl-kos">}</span></span>, 目标主机: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetHost</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-c">// 验证服务映射</span>
+  <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-c1">!</span><span class="pl-s1">targetHost</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">error</span><span class="pl-kos">(</span><span class="pl-s">`服务映射未找到: 客户端尝试访问别名 '<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetAlias</span><span class="pl-kos">}</span></span>'`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span> <span class="pl-en">createErrorResponse</span><span class="pl-kos">(</span><span class="pl-s">`Service alias '<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetAlias</span><span class="pl-kos">}</span></span>' not found`</span><span class="pl-kos">,</span> <span class="pl-c1">404</span><span class="pl-kos">,</span> <span class="pl-s">`Available services: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-v">Object</span><span class="pl-kos">.</span><span class="pl-en">keys</span><span class="pl-kos">(</span><span class="pl-s1">proxies</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">join</span><span class="pl-kos">(</span><span class="pl-s">', '</span><span class="pl-kos">)</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+  <span class="pl-c">// 构建目标路径和URL</span>
+  <span class="pl-k">const</span> <span class="pl-s1">targetPath</span> <span class="pl-c1">=</span> <span class="pl-s1">pathParts</span><span class="pl-kos">.</span><span class="pl-en">slice</span><span class="pl-kos">(</span><span class="pl-c1">3</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">join</span><span class="pl-kos">(</span><span class="pl-s">"/"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-k">const</span> <span class="pl-s1">targetUrl</span> <span class="pl-c1">=</span> <span class="pl-s">`https://<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetHost</span><span class="pl-kos">}</span></span>/<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetPath</span><span class="pl-kos">}</span></span><span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">search</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">;</span>
+  <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`目标路径: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetPath</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`最终目标URL: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetUrl</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-k">try</span> <span class="pl-kos">{</span>
+    <span class="pl-c">// 处理请求头</span>
+    <span class="pl-k">const</span> <span class="pl-s1">forwardedHeaders</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Headers</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-k">const</span> <span class="pl-kos">[</span><span class="pl-s1">key</span><span class="pl-kos">,</span> <span class="pl-s1">value</span><span class="pl-kos">]</span> <span class="pl-k">of</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">headers</span><span class="pl-kos">.</span><span class="pl-en">entries</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">{</span>
+      <span class="pl-k">const</span> <span class="pl-s1">lowerKey</span> <span class="pl-c1">=</span> <span class="pl-s1">key</span><span class="pl-kos">.</span><span class="pl-en">toLowerCase</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+      <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-c1">!</span><span class="pl-v">BlacklistedHeaders</span><span class="pl-kos">.</span><span class="pl-en">has</span><span class="pl-kos">(</span><span class="pl-s1">lowerKey</span><span class="pl-kos">)</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">!</span><span class="pl-s1">lowerKey</span><span class="pl-kos">.</span><span class="pl-en">startsWith</span><span class="pl-kos">(</span><span class="pl-s">"sec-ch-ua"</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-s1">forwardedHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s1">key</span><span class="pl-kos">,</span> <span class="pl-s1">value</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+      <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span>
+    <span class="pl-c">// 设置必要的headers</span>
+    <span class="pl-s1">forwardedHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"Host"</span><span class="pl-kos">,</span> <span class="pl-s1">targetHost</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">forwardedHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"User-Agent"</span><span class="pl-kos">,</span> <span class="pl-s">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c">// Claude API 特殊处理</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">targetAlias</span> <span class="pl-c1">===</span> <span class="pl-s">"claude"</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">!</span><span class="pl-s1">forwardedHeaders</span><span class="pl-kos">.</span><span class="pl-en">has</span><span class="pl-kos">(</span><span class="pl-s">"anthropic-version"</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-s1">forwardedHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"anthropic-version"</span><span class="pl-kos">,</span> <span class="pl-s">"2023-06-01"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
+    <span class="pl-c">// 处理请求体</span>
+    <span class="pl-k">let</span> <span class="pl-s1">requestBody</span> <span class="pl-c1">=</span> <span class="pl-c1">null</span><span class="pl-kos">;</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span> <span class="pl-c1">!==</span> <span class="pl-s">"GET"</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span> <span class="pl-c1">!==</span> <span class="pl-s">"HEAD"</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+      <span class="pl-c">// Gemini NoThink 特殊处理</span>
+      <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">targetAlias</span> <span class="pl-c1">===</span> <span class="pl-s">"gemininothink"</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span> <span class="pl-c1">===</span> <span class="pl-s">"POST"</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">headers</span><span class="pl-kos">.</span><span class="pl-en">get</span><span class="pl-kos">(</span><span class="pl-s">"content-type"</span><span class="pl-kos">)</span><span class="pl-kos">?.</span><span class="pl-en">includes</span><span class="pl-kos">(</span><span class="pl-s">"application/json"</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-k">try</span> <span class="pl-kos">{</span>
+          <span class="pl-k">const</span> <span class="pl-s1">bodyText</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-en">text</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+          <span class="pl-k">const</span> <span class="pl-s1">bodyJson</span> <span class="pl-c1">=</span> <span class="pl-c1">JSON</span><span class="pl-kos">.</span><span class="pl-en">parse</span><span class="pl-kos">(</span><span class="pl-s1">bodyText</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+          <span class="pl-s1">bodyJson</span><span class="pl-kos">.</span><span class="pl-c1">generationConfig</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span>
+            ...<span class="pl-s1">bodyJson</span><span class="pl-kos">.</span><span class="pl-c1">generationConfig</span> <span class="pl-c1">||</span> <span class="pl-kos">{</span><span class="pl-kos">}</span><span class="pl-kos">,</span>
+            <span class="pl-c1">thinkingConfig</span>: <span class="pl-kos">{</span>
+              <span class="pl-c1">thinkingBudget</span>: <span class="pl-c1">0</span>
+            <span class="pl-kos">}</span>
+          <span class="pl-kos">}</span><span class="pl-kos">;</span>
+          <span class="pl-s1">requestBody</span> <span class="pl-c1">=</span> <span class="pl-c1">JSON</span><span class="pl-kos">.</span><span class="pl-en">stringify</span><span class="pl-kos">(</span><span class="pl-s1">bodyJson</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+          <span class="pl-s1">forwardedHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"content-type"</span><span class="pl-kos">,</span> <span class="pl-s">"application/json"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span> <span class="pl-k">catch</span> <span class="pl-kos">(</span><span class="pl-s1">e</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+          <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">error</span><span class="pl-kos">(</span><span class="pl-s">`修改gemininothink请求体失败: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">e</span><span class="pl-kos">.</span><span class="pl-c1">message</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+          <span class="pl-k">return</span> <span class="pl-en">createErrorResponse</span><span class="pl-kos">(</span><span class="pl-s">"Invalid JSON format in request body"</span><span class="pl-kos">,</span> <span class="pl-c1">400</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+      <span class="pl-kos">}</span> <span class="pl-k">else</span> <span class="pl-kos">{</span>
+        <span class="pl-s1">requestBody</span> <span class="pl-c1">=</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">body</span><span class="pl-kos">;</span>
+      <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`发起请求到: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetUrl</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c">// 发起代理请求</span>
+    <span class="pl-k">const</span> <span class="pl-s1">apiResponse</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-en">fetch</span><span class="pl-kos">(</span><span class="pl-s1">targetUrl</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">method</span>: <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span><span class="pl-kos">,</span>
+      <span class="pl-c1">headers</span>: <span class="pl-s1">forwardedHeaders</span><span class="pl-kos">,</span>
+      <span class="pl-c1">body</span>: <span class="pl-s1">requestBody</span><span class="pl-kos">,</span>
+      <span class="pl-c1">redirect</span>: <span class="pl-s">"manual"</span>
+    <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`API响应状态: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">apiResponse</span><span class="pl-kos">.</span><span class="pl-c1">status</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">logRequest</span><span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span><span class="pl-kos">,</span> <span class="pl-s1">pathname</span><span class="pl-kos">,</span> <span class="pl-s1">targetUrl</span><span class="pl-kos">,</span> <span class="pl-s1">apiResponse</span><span class="pl-kos">.</span><span class="pl-c1">status</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c">// 设置CORS响应头</span>
+    <span class="pl-k">const</span> <span class="pl-s1">responseHeaders</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-v">Headers</span><span class="pl-kos">(</span><span class="pl-s1">apiResponse</span><span class="pl-kos">.</span><span class="pl-c1">headers</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">responseHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"Access-Control-Allow-Origin"</span><span class="pl-kos">,</span> <span class="pl-s">"*"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">responseHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"Access-Control-Allow-Methods"</span><span class="pl-kos">,</span> <span class="pl-s">"GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">responseHeaders</span><span class="pl-kos">.</span><span class="pl-en">set</span><span class="pl-kos">(</span><span class="pl-s">"Access-Control-Allow-Headers"</span><span class="pl-kos">,</span> <span class="pl-s">"Content-Type, Authorization, X-Requested-With, anthropic-version, x-api-key"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-v">Response</span><span class="pl-kos">(</span><span class="pl-s1">apiResponse</span><span class="pl-kos">.</span><span class="pl-c1">body</span><span class="pl-kos">,</span> <span class="pl-kos">{</span>
+      <span class="pl-c1">status</span>: <span class="pl-s1">apiResponse</span><span class="pl-kos">.</span><span class="pl-c1">status</span><span class="pl-kos">,</span>
+      <span class="pl-c1">headers</span>: <span class="pl-s1">responseHeaders</span>
+    <span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span> <span class="pl-k">catch</span> <span class="pl-kos">(</span><span class="pl-s1">error</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+    <span class="pl-c">// 详细的错误分类和日志记录</span>
+    <span class="pl-k">const</span> <span class="pl-s1">errorInfo</span> <span class="pl-c1">=</span> <span class="pl-en">categorizeError</span><span class="pl-kos">(</span><span class="pl-s1">error</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">error</span><span class="pl-kos">(</span><span class="pl-s">`[<span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">errorInfo</span><span class="pl-kos">.</span><span class="pl-c1">type</span><span class="pl-kos">}</span></span>] API代理请求失败:`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">error</span><span class="pl-kos">(</span><span class="pl-s">`  目标URL: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">targetUrl</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">error</span><span class="pl-kos">(</span><span class="pl-s">`  错误详情: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">error</span><span class="pl-kos">.</span><span class="pl-c1">message</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">error</span><span class="pl-kos">(</span><span class="pl-s">`  错误堆栈: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">error</span><span class="pl-kos">.</span><span class="pl-c1">stack</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">logRequest</span><span class="pl-kos">(</span><span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">method</span><span class="pl-kos">,</span> <span class="pl-s1">pathname</span><span class="pl-kos">,</span> <span class="pl-s1">targetUrl</span><span class="pl-kos">,</span> <span class="pl-s1">errorInfo</span><span class="pl-kos">.</span><span class="pl-c1">status</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span> <span class="pl-en">createErrorResponse</span><span class="pl-kos">(</span><span class="pl-s1">errorInfo</span><span class="pl-kos">.</span><span class="pl-c1">message</span><span class="pl-kos">,</span> <span class="pl-s1">errorInfo</span><span class="pl-kos">.</span><span class="pl-c1">status</span><span class="pl-kos">,</span> <span class="pl-s">`Error type: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-s1">errorInfo</span><span class="pl-kos">.</span><span class="pl-c1">type</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+  <span class="pl-kos">}</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">"🚀 API代理服务器已启动"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">`📋 支持的服务: <span class="pl-s1"><span class="pl-kos">${</span><span class="pl-v">Object</span><span class="pl-kos">.</span><span class="pl-en">keys</span><span class="pl-kos">(</span><span class="pl-s1">proxies</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">join</span><span class="pl-kos">(</span><span class="pl-s">', '</span><span class="pl-kos">)</span><span class="pl-kos">}</span></span>`</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+<span class="pl-smi">console</span><span class="pl-kos">.</span><span class="pl-en">log</span><span class="pl-kos">(</span><span class="pl-s">"📖 使用方法: /&lt;base_path&gt;/{service}/{path} (例如: /api/openai/v1/chat/completions)"</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre></div>
 <h2>最新版本的功能和优点：</h2>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b0ab1a72-eb45-4dd4-bedd-a376d8e84ccd"><img width="1060" height="414" alt="Image" src="https://github.com/user-attachments/assets/b0ab1a72-eb45-4dd4-bedd-a376d8e84ccd" style="max-width: 100%; height: auto; max-height: 414px;"></a></p>
 <h2>最后感谢：</h2>
