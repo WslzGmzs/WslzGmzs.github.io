@@ -1,5 +1,97 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Wed, 18 Feb 2026 15:38:28 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>记 —— 容器网络应用摸索</title><link>https://WslzGmzs.github.io/post/ji-%20%E2%80%94%E2%80%94%20-rong-qi-wang-luo-ying-yong-mo-suo.html</link><description>&lt;div data-theme-toc='true'&gt; &lt;/div&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Sun, 01 Mar 2026 12:42:10 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>测试 Cloudflare AI Gateway 自定义服务商：隐私与转发机制解析</title><link>https://WslzGmzs.github.io/post/ce-shi-%20Cloudflare%20AI%20Gateway%20-zi-ding-yi-fu-wu-shang-%EF%BC%9A-yin-si-yu-zhuan-fa-ji-zhi-jie-xi.html</link><description>今天机缘巧合发现 Cloudflare AI Gateway 支持自定义供应商了
+
+&lt;img width='1504' height='680' alt='Image' src='https://github.com/user-attachments/assets/16a562ec-14c2-4cf2-b812-8a44a40a065f' /&gt;
+
+就简单测试一下看看 Cloudflare 把什么发给了我们的上游
+
+先搭一个靶子先
+
+```python
+from flask import Flask, request
+import json
+import sys
+
+app = Flask(__name__)
+
+@app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/&lt;path:path&gt;', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def catch_all(path):
+    request_info = {
+        'method': request.method,
+        'path': path,
+        'ip': request.remote_addr,
+        'headers': dict(request.headers),
+        'body': request.get_data(as_text=True)
+    }
+
+    print('\n--- New Request Received ---', flush=True)
+    print(json.dumps(request_info, indent=4, ensure_ascii=False), flush=True)
+    
+    return {'status': 'success', 'received_path': path}
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+
+```
+pip install flask
+```
+
+&lt;img width='555' height='431' alt='Image' src='https://github.com/user-attachments/assets/1e924b42-0e8a-4a6d-bcd3-26f79adfad6b' /&gt;
+
+Post 请求得到下面
+
+```
+{
+    'method': 'POST',
+    'path': 'v1/chat/completions',
+    'ip': '172.18.0.1',
+    'headers': {
+        'Host': 'xxx.xxxx.xyz',
+        'X-Forwarded-For': '13.173.100.50,2a06:98c0:0000::13, 162.18.128.41',
+        'X-Forwarded-Host': 'xxx.xxxx.xyz',
+        'X-Real-Ip': '162.18.128.41',
+        'X-Forwarded-Proto': 'https',
+        'Content-Length': '146',
+        'Cf-Ray': '9d56fb73640d888d-SIN',
+        'Cf-Iplongitude': '103.85007',
+        'Cf-Iplatitude': '1.28967',
+        'Accept-Encoding': 'gzip, br',
+        'Cf-Ipcountry': 'SG',
+        'Cf-Ipcontinent': 'AS',
+        'Cf-Visitor': '{\'scheme\':\'https\'}',
+        'Cf-Ipcity': 'Singapore',
+        'Cf-Worker': 'gateway.ai.cloudflare.com',
+        'Cf-Timezone': 'Asia/Singapore',
+        'Cf-Pseudo-Ipv4': '253.102.157.193',
+        'X-Title': 'Cherry Studio',
+        'Cf-Postal-Code': '018989',
+        'Content-Type': 'application/json',
+        'Cf-Ew-Via': '15',
+        'Cdn-Loop': 'cloudflare; loops=1; subreqs=1',
+        'Accept-Language': 'zh-CN',
+        'Accept': '*/*',
+        'Authorization': 'Bearer sk-xxx',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) CherryStudio/1.7.19 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36',
+        'Cf-Connecting-Ip': '2a06:98c0:3600::163',
+        'Http-Referer': 'https://cherry-ai.com',
+        'Priority': 'u=1, i',
+        'Sec-Ch-Ua': '\'Not=A?Brand\';v=\'24\', \'Chromium\';v=\'140\'',
+        'Sec-Ch-Ua-Mobile': '?0',
+        'Sec-Ch-Ua-Platform': '\'Windows\'',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'cross-site',
+        'Cookie': '__cf_bm=BlU.H71jVXbGn.KlFpriO7FZuEHdENh_Mut6.VVgTqA-1772233459-1.0.1.1-qwxSdI3avXTLxkiFUHrRbhmU2oGMNbT69W4c4P5V37r1vVFqaEUJ_oIsnh332SosE4fpxLRf9qeIDNTCG_rD4yfet7GaMBBc1_UJwCtKty0'
+    },
+    'body': '{\'model\':\'1\',\'messages\':[{\'role\':\'system\',\'content\':\'test\'},{\'role\':\'user\',\'content\':\'hi\'}],\'stream\':true,\'stream_options\':{\'include_usage\':true}}'
+}
+```
+
+这里可以看到 `'X-Forwarded-For': '13.173.100.50` 精准的泄露了我的真实 ip，而我目前没有什么办法，除非不用 Cloudflare AI Gateway
+
+。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/ce-shi-%20Cloudflare%20AI%20Gateway%20-zi-ding-yi-fu-wu-shang-%EF%BC%9A-yin-si-yu-zhuan-fa-ji-zhi-jie-xi.html</guid><pubDate>Sun, 01 Mar 2026 12:41:44 +0000</pubDate></item><item><title>记 —— 容器网络应用摸索</title><link>https://WslzGmzs.github.io/post/ji-%20%E2%80%94%E2%80%94%20-rong-qi-wang-luo-ying-yong-mo-suo.html</link><description>&lt;div data-theme-toc='true'&gt; &lt;/div&gt;
 
 **前情提要：** 主要是记录实践的感慨和分享一下微小的经验，在我看来一些细微的细节就能折腾我们小白心力憔悴，以在下小白视角描述，没有系统学习过，纯靠 ai 和浏览器自己摸索，还搞崩溃了好几次容器网络，如有错误请大佬积极点出，以下使用均在 1panel 进行（毕竟小白嘛，命令行还是有点不懂），docker compose 不怎么会就不说了
 
