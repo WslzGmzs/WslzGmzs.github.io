@@ -1,5 +1,70 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Sun, 01 Mar 2026 12:42:10 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>测试 Cloudflare AI Gateway 自定义服务商：隐私与转发机制解析</title><link>https://WslzGmzs.github.io/post/ce-shi-%20Cloudflare%20AI%20Gateway%20-zi-ding-yi-fu-wu-shang-%EF%BC%9A-yin-si-yu-zhuan-fa-ji-zhi-jie-xi.html</link><description>今天机缘巧合发现 Cloudflare AI Gateway 支持自定义供应商了
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Tue, 26 May 2026 19:44:46 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>记——PocoClaw部署过程</title><link>https://WslzGmzs.github.io/post/ji-%E2%80%94%E2%80%94PocoClaw-bu-shu-guo-cheng.html</link><description>### 花了半天时间部署，把坑都踩了一遍
+
+---
+
+### 简单运行
+
+```
+git clone https://github.com/poco-ai/poco-agent.git  
+cd poco-agent
+```
+
+```
+./scripts/quickstart.sh
+```
+
+脚本会以交互式向导引导你完成配置，主要询问：
+
+1. **语言选择**（中文/英文）
+2. **部署模式**：本地开发 or 云端部署
+3. **模型 API 类型**：Anthropic 官方 or 兼容 API（代理/第三方）
+4. **API Key**：填入你的 `ANTHROPIC_API_KEY`
+5. **API Base URL**：官方默认 `https://api.anthropic.com`，第三方填对应地址
+6. **默认模型 ID**：如 `claude-sonnet-4-20250514`
+7. **S3 公共端点**（本地开发可直接跳过）
+
+脚本会自动：
+- 从 `.env.example` 生成 `.env` 配置文件
+- 拉取所需 Docker 镜像
+- 启动所有服务 poco-agent:73-81 
+
+**访问界面**
+
+启动完成后，打开浏览器访问：
+
+```
+http://localhost:3000
+```
+
+---
+
+### 这时候你可能遇到的问题
+
+1. Linux 下 RustFS 权限问题：如果报 Permission denied，需要执行：
+```
+mkdir -p oss_data  
+sudo chown -R 10001:10001 oss_data
+```
+
+2. 端口占用，修改.env文件带PORT的环境变量，比如
+```
+# -----------------------------------------------------------------------------
+# Service Ports (Optional)
+# -----------------------------------------------------------------------------
+# FRONTEND_PORT=3000
+# BACKEND_PORT=8000
+# EXECUTOR_MANAGER_PORT=8001
+# POSTGRES_PORT=5432
+# S3_PORT=9000
+# S3_CONSOLE_PORT=9001
+```
+
+3. backend 容器启动失败，使用下面命令查看报错
+```
+docker compose logs backend
+```
+- 可以发给AI看看，大概率是S3 bucket 未创建，backend 启动时会尝试连接 S3，如果 bucket 不存在会报错。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/ji-%E2%80%94%E2%80%94PocoClaw-bu-shu-guo-cheng.html</guid><pubDate>Tue, 26 May 2026 19:44:15 +0000</pubDate></item><item><title>测试 Cloudflare AI Gateway 自定义服务商：隐私与转发机制解析</title><link>https://WslzGmzs.github.io/post/ce-shi-%20Cloudflare%20AI%20Gateway%20-zi-ding-yi-fu-wu-shang-%EF%BC%9A-yin-si-yu-zhuan-fa-ji-zhi-jie-xi.html</link><description>今天机缘巧合发现 Cloudflare AI Gateway 支持自定义供应商了
 
 &lt;img width='1504' height='680' alt='Image' src='https://github.com/user-attachments/assets/16a562ec-14c2-4cf2-b812-8a44a40a065f' /&gt;
 
