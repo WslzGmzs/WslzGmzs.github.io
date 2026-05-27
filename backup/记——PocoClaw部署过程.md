@@ -183,6 +183,17 @@ docker compose down && docker compose up -d
 
 ---
 
+### 开启mem0
+```
+# 1. 在 .env 中设置（更多的也在这里配置）
+MEM0_ENABLED=true
+ 
+# 2. 用 mem0 profile 启动（部署过了记得先down）
+docker compose --profile mem0 up -d
+```
+
+---
+
 ### 更新镜像
 
 1. 拉取最新镜像  

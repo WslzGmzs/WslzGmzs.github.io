@@ -404,6 +404,14 @@ CALLBACK_TOKEN=change-this-token-in-production
 <pre class="notranslate"><code class="notranslate">docker compose down &amp;&amp; docker compose up -d
 </code></pre>
 <hr>
+<h3>开启mem0</h3>
+<pre class="notranslate"><code class="notranslate"># 1. 在 .env 中设置（更多的也在这里配置）
+MEM0_ENABLED=true
+ 
+# 2. 用 mem0 profile 启动（部署过了记得先down）
+docker compose --profile mem0 up -d
+</code></pre>
+<hr>
 <h3>更新镜像</h3>
 <ol>
 <li>拉取最新镜像</li>
