@@ -105,7 +105,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>一款现代、高性能、轻量级且低内存占用的 WSL (Windows Subsystem for Linux) 实例管理仪表板。基于 Rust 和 Slint 构建，提供顶级的原生体验。</p>
 </blockquote>
 <p><strong>主要用于隔离环境，多开</strong>，WSL所有发行版共享同一个 IP 和同一个网络栈，多开需要注意<strong>端口冲突</strong><br>
-<a href="https://www.bilibili.com/video/BV1pYNm69EPm/" rel="nofollow">WSL保姆级全攻略</a>：Windows跑AI Agent，WSL才是终极答案。</p>
+<a href="https://www.bilibili.com/video/BV1pYNm69EPm/" rel="nofollow">WSL保姆级全攻略</a>：Windows跑AI Agent，WSL才是终极答案。<br>
+<a href="https://linux.do/t/topic/2558471" rel="nofollow">WSL GUI 使用小技巧</a></p>
 <hr>
 <h3><a href="https://github.com/Justsenger/ExHyperV">ExHyperV</a></h3>
 <blockquote>
@@ -162,6 +163,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><a href="https://linux.do/t/topic/2585447" rel="nofollow">【拯救 5.6 Sol（1.5）】codex首包卡死问题调查和解法</a></li>
 <li><a href="https://linux.do/t/topic/2612425" rel="nofollow">【拯救 5.6 Sol（2）】让 Codex 又快又准的原生模型工具</a></li>
 <li><a href="https://github.com/orange-the-weak/codex-auto-model-router">Codex Auto Model Router</a>：面向 OpenAI Codex 的轻量 GPT-5.6 模型与推理强度路由器。</li>
+<li><a href="https://linux.do/t/topic/2684749" rel="nofollow">说一下使用中转站API进行codex软件开发的那些坑</a></li>
 <li></li>
 <li><a href="https://github.com/4thfever/codex-document-mode">codex-document-mode</a>：让Codex向你呈递公文并接受批示圈阅。</li>
 <li></li>
@@ -295,6 +297,8 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://github.com/Sophomoresty/bpc-fetch">bpc-fetch</a>：付费墙绕过 — 搜索, 发现, 批量抓取新闻文章为 Markdown。</li>
 <li><a href="https://github.com/GuDaStudio/GrokSearch/tree/grok-with-tavily">GrokSearch</a>：通过 MCP 协议将 Grok 强大的实时搜索功能集成到 Claude 中！</li>
 <li><a href="https://github.com/Episkey-G/GrokSearch-rs">GrokSearch-rs</a>：用于 Grok 网络搜索和 Tavily 支持的源代码检索的 Rust MCP 服务器。</li>
+<li><a href="https://github.com/BlueOcean223/grok-search">grok-search-skill</a>：一个 基于 <code class="notranslate">Grok</code> 强大的 <code class="notranslate">web_search</code> 能力，使用 xAI 的 Responses 协议，并辅以 Tavily、Firecrawl 增强信源的，增强 agent 的 <code class="notranslate">web_search</code>、<code class="notranslate">web_fetch</code>和 <code class="notranslate">map</code> 能力的 skill。<br>
+<a href="https://linux.do/t/topic/2564813" rel="nofollow">Grok Search：从Chat、Brave/Tavily到Responses</a></li>
 <li><a href="https://github.com/konbakuyomu/smartsearch">smartsearch</a>：一个给 AI 助手和命令行用户使用的 CLI-first 网页研究工具。它把普通联网搜索、来源发现、网页正文抓取、站点 map、配置检查、Deep Research 离线规划和 live Deep Research 执行统一成一个可复现的命令层。</li>
 <li><a href="https://github.com/skernelx/MySearch-Proxy">MySearch-Proxy</a>：统一搜索 MCP、代理控制台和 Tavily、Firecrawl 和 Social / X 的技能。</li>
 <li><a href="https://github.com/exa-labs/agent-skills/tree/main/skills/exa-search">exa-search</a>：直接使用 cURL 或原始 HTTP 调用 Exa Search。<strong>感觉没什么用这个，免费额度好像不多。</strong></li>
@@ -317,7 +321,7 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://github.com/hellowind777/hellomedia">hellomedia</a>：面向 Agent 的多模态技能：图像 / 视频 / 音频的理解与生成。</li>
 <li></li>
 </ul>
-<h3>前端</h3>
+<h3>前端/设计</h3>
 <blockquote>
 <p>色彩：绿萤石，矩阵萤石，蓝萤石，金矿石，孔雀石，石榴石</p>
 </blockquote>
@@ -326,7 +330,7 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <p><a href="https://github.com/pbakaus/impeccable">impeccable</a>：针对 AI 编码代理的设计指南。1 项技能，23 条命令，实时浏览器迭代，以及 59 条确定性检测规则，用于 AI 生成的前端设计。</p>
 </li>
 <li>
-<p><a href="https://github.com/yg2224/app-shell-ui">app-shell-ui</a>：一套可由 Codex、Claude Code、Grok 等 agent 加载的前端设计与实现规范。</p>
+<p><a href="https://github.com/yg2224/app-shell-ui">app-shell-ui</a>：一套可由 Codex、Claude Code、Grok 等 agent 加载的前端设计与实现规范。<strong>还行其实，比较简洁。</strong></p>
 </li>
 <li>
 <p><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">ui-ux-pro-max-skill</a>：一个为跨多平台和框架构建专业 UI/UX 提供设计智能的 AI 技能。<br>
@@ -339,6 +343,9 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li>
 <p><a href="https://github.com/alchaincyf/huashu-design">huashu-design</a>：HTML 原生的设计 skill · 高保真原型 / 幻灯片 / 动画 + 20 设计哲学 + 5 维评审 + MP4 导出 · Agent-agnostic。<br>
 <a href="https://www.bilibili.com/video/BV1QQEN6mEgH/" rel="nofollow">我逆向了Claude Design！</a></p>
+</li>
+<li>
+<p><a href="https://github.com/dandandujie/vibedesign">vibedesign</a>：本地 Claude Design 复刻版（BYOK）——聊天驱动的设计工作台。Web + Electron（Win/Mac）。<strong>还原很高。</strong></p>
 </li>
 <li>
 <p><a href="https://github.com/nexu-io/open-design">open-design</a>：开源的 Claude Design 替代方案。</p>
@@ -502,7 +509,8 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://cli.github.com">*<strong>GitHub CLI</strong></a>：伟大无需多言，除非不用GitHub，只需要和 AI 说明安装了就可以。</li>
 <li><a href="https://github.com/WslzGmzs/DEEIX-Chat/tree/dev/.codex/skills/release-note-writer">*<strong>release-note-writer</strong></a>：基于真实的 Git 数据，创建面向用户的 GitHub 发布说明。</li>
 <li><a href="https://github.com/mcp/com.figma.mcp/mcp">Figma MCP</a>：<br>
-<a href="https://linux.do/t/topic/2738295" rel="nofollow">把 Image2 生成的平面 UI 设计图，拆成 Figma 切图与 HTML（支持复杂伪元素）</a></li>
+<a href="https://linux.do/t/topic/2738295" rel="nofollow">把 Image2 生成的平面 UI 设计图，拆成 Figma 切图与 HTML（支持复杂伪元素）</a><br>
+<a href="https://github.com/50kg/image-to-slice">image-to-slice</a>：一个支持 Figma Desktop 插件和独立网页模式的 AI UI 图片拆解与还原工具</li>
 <li><a href="https://github.com/iOfficeAI/OfficeCLI">OfficeCLI</a>：专为 AI agent 打造的 Office 套件：用单条命令直接读写 Word/Excel/PowerPoint，单二进制无需安装 Office，避免现场造 Python 胶水轮子损坏文件</li>
 <li><a href="https://github.com/oomol-lab/open-connector">open-connector</a>：OpenConnector 是一个开源的连接器网关，为 AI 代理和应用程序提供对用户已使用工具和数据的持久、安全访问。</li>
 <li><a href="https://github.com/jackwener/OpenCLI">OpenCLI</a>：将任意网站转换为 CLI 并通过 AI 代理使用已登录的浏览器。</li>
@@ -527,9 +535,11 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://github.com/kkkqkx123/web-clone">web-clone</a>：单次执行的网页快照工具 — 下载并打包完整网页快照，支持可选的组件结构提取和框架代码生成。</li>
 <li><a href="https://github.com/boyang-hu/website-rebuild-skill">website-rebuild-skill</a>：给一个网址，让你的 AI agent 把那个网站逐行复刻出来，并且能证明复刻得对。</li>
 <li><a href="https://github.com/LifelongLazyLearner/qu-ai-wei">qu-ai-wei</a>：去除简体中文 AI 写作痕迹</li>
-<li><a href="https://github.com/blader/humanizer">Humanizer</a>：从文本中去除 AI 生成写作痕迹的 Agent 技能（英文）</li>
+<li><a href="https://github.com/blader/humanizer">Humanizer</a>：从文本中去除 AI 生成写作痕迹的 Agent 技能（英文）。</li>
+<li><a href="https://github.com/LeonardNJU/code-humanizer">code-humanizer</a>：一种能够消除人工智能生成代码缺陷的智能体技能：重复的辅助函数、try-import 回退、宽泛的异常处理、推测性的抽象。测试控制，行为保持。</li>
 <li><a href="https://github.com/shuxueshuxue/claudehell">claudehell</a>：检查并改写文本里的模型腔。</li>
 <li><a href="https://github.com/tt-a1i/archify">archify</a>：用于创建美观、可验证的架构、工作流程、序列、数据流和生命周期图——包含动态效果和清晰导出的独立 HTML。</li>
+<li><a href="https://github.com/hajimi-kun/latex-to-word-workflow">latex-to-word-workflow</a>：提供精良的 LaTeX 到 Word 转换，并实时保留 Zotero 引用。</li>
 <li><a href="https://github.com/LB623/no-negative-echo">no-negative-echo</a>：让 Codex 根据最终结果生成标题、注释、commit 和 PR，减少被否决方案在交付中的残留。</li>
 <li><a href="https://github.com/Imbad0202/academic-research-skills">Academic Research Skills</a>：一套完整的学术研究 Claude Code 技能包，涵盖从研究到论文出版的全流程。</li>
 <li><a href="https://huggingface.co/spaces/multimodalart/qwen-image-multiple-angles-3d-camera" rel="nofollow">qwen-image-multiple-angles-3d-camera</a>：使用 3D 视口或滑块控制相机角度。</li>
@@ -610,6 +620,7 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://github.com/datawhalechina/hello-agents">hello-agents</a>：《从零开始构建智能体》——从零开始的智能体原理与实践教程</li>
 <li><a href="https://github.com/alibaba/page-agent">page-agent</a>：JavaScript 页面内 GUI 代理。使用自然语言控制网页界面。</li>
 <li><a href="https://github.com/nousresearch/hermes-agent">hermes-agent</a>：随你成长的代理</li>
+<li><a href="https://github.com/Stack-Cairn/LiveAgent">LiveAgent</a>：一款功能齐全的 AI 代理桌面客户端，支持 Webui 访问，并且可以进行创造性的定制和扩展！</li>
 <li><a href="https://github.com/rohitg00/ai-engineering-from-scratch">ai-engineering-from-scratch</a>：一份免费、开源、基于 MIT 许可的课程，带你从线性 algebra 一路走到自主 Agent 群——通过首先从原始数学开始构建每一个算法。这不是一门概述性课程。这是一份包含 503 节课、20 个阶段、约 314 小时的构建手册，每节课的成果都是一个可复用的产物，你可以在当天安装并使用它。</li>
 <li><a href="https://github.com/omnimind-ai/OmniBot">OmniBot</a>：你的手机 AI 代理，她可以操作终端，也可以完成 Android 世界的广泛任务。<br>
 <strong>特点：不需要手机Root。</strong></li>
@@ -625,12 +636,6 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://wren.wtf/shower-thoughts/stop-using-opencode" rel="nofollow">停止使用 OpenCode | Stop Using OpenCode</a>：这是我不使用 OpenCode 的理由之一。<br>
 <a href="https://linux.do/t/topic/2631692" rel="nofollow">【转/deeplx译 非LLM】停止使用 OpenCode | Stop Using OpenCode</a></li>
 <li><a href="https://linux.do/t/topic/2284134" rel="nofollow">1flowbase正式发布-组合发布专属大模型-个人和企业也能做模型上游供应商</a></li>
-<li></li>
-</ul>
-<hr>
-<h2>[前端]</h2>
-<ul>
-<li><a href="https://github.com/50kg/image-to-slice">image-to-slice</a>：一个支持 Figma Desktop 插件和独立网页模式的 AI UI 图片拆解与还原工具</li>
 <li></li>
 </ul>
 <hr>
@@ -655,6 +660,7 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://linux.do/t/topic/2427799" rel="nofollow">黑客入侵 vip 流派</a></li>
 <li><a href="https://linux.do/t/topic/2221309" rel="nofollow">作者授权测试流派</a></li>
 <li><a href="https://linux.do/t/topic/2607395" rel="nofollow">司法取证流派</a></li>
+<li><a href="https://linux.do/t/topic/2599282" rel="nofollow">AI时代开发爬虫/自动化脚本抓包分析 - 基于 Har</a></li>
 <li><a href="https://github.com/FuDie0915/Super-Instruct-Codex-5.6">Super-Instruct-Codex-5.6</a>：针对GPT 5.6的破甲实验项目，基于Rust开发。</li>
 <li><a href="https://linux.do/t/topic/2541496" rel="nofollow">自用的一个 NSFW 成人小说提示词，适合在 Google 的反重力或者国模 api 使用（帖子内容可能引人不适）</a></li>
 <li></li>
@@ -677,13 +683,15 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://linux.do/t/topic/2706958" rel="nofollow">以Deepseek 的适配的 meesage 协议为例，说说如何让KV-cache（Prompt-cache）的命中率更高，或者说，如何更省钱</a></li>
 <li><a href="https://linux.do/t/topic/1524273" rel="nofollow">上下文是稀缺资源｜RAG、Memory、Skills 的设计哲学刍议</a></li>
 <li><a href="https://linux.do/t/topic/2708576" rel="nofollow">关于渐进式披露工具上下文的几种方向讨论</a></li>
+<li><a href="https://linux.do/t/topic/2306861" rel="nofollow">深度解析 AI API 里的 <code class="notranslate">/v1/messages</code>、<code class="notranslate">/v1/chat/completions</code>、<code class="notranslate">/v1/responses</code>：这些后缀到底是什么，为什么要这样设计？</a></li>
 <li></li>
 </ul>
 <hr>
 <h2>[提示词]</h2>
 <ul>
 <li><a href="https://github.com/ciembor/agent-rules-books">agent-rules-books</a>：AGENTS.md rules / 技能 for Codex, Cursor, Claude Code，提炼自经典 软件工程书籍 ，涉及重构、架构、DDD 和代码质量。</li>
-<li><a href="https://linux.do/t/topic/2642792" rel="nofollow">几句提示词拯救你的前端 UI 审美</a>：</li>
+<li><a href="https://linux.do/t/topic/879281" rel="nofollow">Gemini防截断的尽头是prompt工程 - 拥有原始思维链的哈基米</a></li>
+<li><a href="https://linux.do/t/topic/2642792" rel="nofollow">几句提示词拯救你的前端 UI 审美</a></li>
 <li><del><a href="https://github.com/tanweai/pua">pua</a>：一个 AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃。</del><br>
 <a href="https://linux.do/t/topic/2827328" rel="nofollow">PUA skills 内置远程提示词执行 + 遥测功能</a>：评价为sb玩意</li>
 <li><a href="https://github.com/wuji-labs/nopua">nopua</a>：一个用爱解放 AI 潜能的 Skill。</li>
