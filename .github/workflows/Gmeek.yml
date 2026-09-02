@@ -41,10 +41,17 @@ jobs:
           lastTag=$(git describe --tags `git rev-list --tags --max-count=1`)
           if [ $GMEEK_VERSION == 'last' ]; then git checkout $lastTag; else git checkout $GMEEK_VERSION; fi;
 
-      - name: Install system dependencies
+      - name: Pin lxml to pre-built wheel version
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libxml2-dev libxslt-dev
+          sed -i 's/^lxml.*/lxml==4.9.3/' /opt/Gmeek/requirements.txt
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('/opt/Gmeek/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
