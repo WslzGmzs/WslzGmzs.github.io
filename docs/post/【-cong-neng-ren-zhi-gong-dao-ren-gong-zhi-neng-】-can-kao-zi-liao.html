@@ -485,18 +485,18 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <a href="https://linux.do/t/topic/2706465" rel="nofollow">提醒：Pi 的 @ff-labs/pi-fff 插件可能持续磁盘读取，实测读取 300+ MiB/s、 75 分钟累计 1.5 TiB</a>：<strong>遂移除</strong></li>
 <li><del><a href="https://github.com/abhigyanpatwari/GitNexus">GitNexus</a>：一个在浏览器中完全运行的客户端知识图谱创建器。</del><strong>许可不好，对这种工具浏览器不是很感冒。</strong></li>
 <li></li>
-<li><a href="https://blog.jia1.de/post/%E3%80%90-zhuan-zai-%E3%80%91-si-ge-dai-ma-yu-yi-sou-suo-gong-ju-de-dui-bi.html" rel="nofollow"><strong>【转载】四个代码语义搜索工具的对比</strong></a></li>
-<li><a href="https://github.com/SammySnake-d/fast-context-mcp">fast-context-mcp</a>：基于人工智能的语义代码搜索作为 MCP 工具——由 Windsurf 逆向工程的 SWE-grep 协议提供支持。<br>
+<li><a href="https://blog.jia1.de/post/%E3%80%90-zhuan-zai-%E3%80%91-si-ge-dai-ma-yu-yi-sou-suo-gong-ju-de-dui-bi.html" rel="nofollow"><strong>【转载】四个代码语义搜索工具的对比：</strong></a></li>
+<li><a href="https://github.com/SammySnake-d/fast-context-mcp"><strong>fast-context-mcp</strong></a>：基于人工智能的语义代码搜索作为 MCP 工具——由 Windsurf 逆向工程的 SWE-grep 协议提供支持。<br>
 <a href="https://github.com/awei84/fast-context-mcp">awei84/fast-context-mcp</a>：Fork版<br>
 <a href="https://github.com/awei84/fast-context-skill">fast-context-skill</a>：快速上下文的技能 + CLI 形式——面向 Claude/agent 生态系统的 AI 驱动语义代码搜索（节点核心重用自 fast-context-mcp）。<br>
 <a href="https://github.com/oulkurt/fast-context-skill">oulkurt/fast-context-skill</a>：对原 MCP 项目的分支式重写为Cli。<br>
 <a href="https://linux.do/t/topic/1583790" rel="nofollow">Fast Context MCP（逆向windsurf的Fast Context）</a></li>
-<li><a href="https://github.com/colbymchenry/codegraph">codegraph</a>：预先索引的代码知识图谱，代码更改时自动同步。<br>
+<li><a href="https://github.com/colbymchenry/codegraph">*<strong>codegraph</strong></a>：预先索引的代码知识图谱，代码更改时自动同步。<br>
 <a href="https://linux.do/t/topic/2536873" rel="nofollow">有啥好用的语义检索工具，类似 Augment ACE 工具</a>：fast-context + codegraph, 模糊语义用前者，有确定的符号就用后者</li>
+<li><del><a href="https://github.com/ast-grep/ast-grep"><strong>ast-grep</strong></a>：一个用于代码结构搜索、代码检查和重写的命令行工具。用 Rust 编写。</del><strong>无状态、无索引、单文件匹配。因为不像Codegraph可以本地索引，查看耦合与Fast-Context，最终选择了Codegraph。</strong></li>
 <li><del><a href="https://github.com/DeusData/codebase-memory-mcp">codebase-memory-mcp</a>：高性能代码智能 MCP 服务器。将代码库索引到持久化知识图谱——平均仓库在毫秒级。158 种语言，子毫秒查询，令牌减少 99%。单个静态二进制文件，零依赖。</del><br>
 <a href="https://linux.do/t/topic/2635662" rel="nofollow">我电脑上codex暴毙的元凶？</a></li>
 <li><del><a href="https://github.com/Egonex-AI/Understand-Anything">Understand-Anything</a>：一个 Claude Code Plugin，通过多智能体（multi-agent）架构分析你的项目，构建包含文件、函数、类以及依赖关系的知识图谱，并提供一个可视化交互界面，帮助你理解整个系统。不再”盲读代码”，而是从全局视角理解系统结构。</del><strong>看了一下，感觉不是专门给AI看的代码库检索工具。</strong></li>
-<li><a href="https://github.com/ast-grep/ast-grep">ast-grep</a>：⚡一个用于代码结构搜索、代码检查和重写的命令行工具。用 Rust 编写。</li>
 <li><del><a href="https://github.com/MinishLab/semble">Semble</a>：一个专为智能体构建的代码搜索库。Python。</del><br>
 <a href="https://linux.do/t/topic/2239176" rel="nofollow">两个代码库语义搜索工具的简单对比（ACE和Semble）</a></li>
 <li><del><a href="https://github.com/hsingjui/ContextWeaver">ContextWeaver</a>：一个专为 AI 代码助手设计的语义检索引擎，采用混合搜索（向量 + 词法）、智能上下文扩展和 Token 感知打包策略，为 LLM 提供精准、相关且上下文完整的代码片段。</del><br>
