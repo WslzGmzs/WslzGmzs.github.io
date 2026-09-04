@@ -117,13 +117,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>主要用于隔离环境，多开</strong>，WSL所有发行版共享同一个 IP 和同一个网络栈，多开需要注意<strong>端口冲突</strong><br>
 <a href="https://www.bilibili.com/video/BV1pYNm69EPm/" rel="nofollow">WSL保姆级全攻略</a>：Windows跑AI Agent，WSL才是终极答案。<br>
 <a href="https://linux.do/t/topic/2558471" rel="nofollow">WSL GUI 使用小技巧</a></p>
-<hr>
 <h3><a href="https://github.com/Justsenger/ExHyperV">ExHyperV</a></h3>
 <blockquote>
 <p>一款图形化的 Hyper-V 管理工具，能让凡人也能轻松玩转Hyper-V的高级功能。</p>
 </blockquote>
 <p><strong>主要用来代替WSL不方便的地方</strong></p>
-<hr>
 <h3><a href="https://cursor.com" rel="nofollow">Cursor</a></h3>
 <blockquote>
 <p>编辑器，起码比idea轻量</p>
@@ -131,26 +129,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><a href="https://github.com/CometixSpace/CCursor">Cursor++</a>：使用自己的 API Key 驱动 Cursor 的 Agent / Chat / Composer。<br>
 <a href="https://linux.do/t/topic/1957183" rel="nofollow">Cursor++ 轻指南</a><br>
 <a href="https://linux.do/t/topic/2248514" rel="nofollow">为什么我说 Cursor Agent Window 是 Codex Desktop 的最佳顶包</a></p>
-<hr>
 <h3><a href="https://github.com/UfoMiao/zcf">zcf</a></h3>
 <blockquote>
 <p>零配置,一键搞定 Claude Code &amp; Codex 环境设置 - 支持中英文双语配置、智能代理系统和个性化 AI 助手</p>
 </blockquote>
 <p><strong>用于最开始的快速初始化</strong></p>
-<hr>
 <h3><a href="https://github.com/musistudio/claude-code-router">claude-code-router</a></h3>
 <blockquote>
 <p>将 Claude Code、Claude Design、Codex、Grok CLI、Kimi CLI、Kilo Code、OpenCode、Pi、ZCode、WorkBuddy 和兼容的 API 客户端连接到您选择的提供商，然后路由、故障转移、扩展和观察来自一个应用程序的每个请求。</p>
 </blockquote>
 <p><strong>在一个平台上管理所有代理商和供应商。</strong><br>
 <em><a href="https://github.com/farion1231/cc-switch">cc-switch</a> 也许。</em></p>
-<hr>
-<h3><a href="https://github.com/cli/cli">*<strong>GitHub CLI</strong></a></h3>
+<h3><a href="https://github.com/cli/cli">GitHub CLI</a></h3>
 <blockquote>
 <p>伟大无需多言，除非不用GitHub，有官方skill或者只需要和 AI 说明安装了就可以。</p>
 </blockquote>
-<p><a href="https://github.com/cli/cli/tree/trunk/skills/gh">gh/skills</a>：官方skill。<br>
-<a href="https://github.com/WslzGmzs/DEEIX-Chat/tree/dev/.codex/skills/release-note-writer">*<strong>release-note-writer</strong></a>：基于真实的 Git 数据，创建面向用户的 GitHub 发布说明。<br>
+<p><a href="https://github.com/cli/cli/tree/trunk/skills/gh">gh/skills</a>：官方skill。</p>
+<p><a href="https://github.com/WslzGmzs/DEEIX-Chat/tree/dev/.codex/skills/release-note-writer">release-note-writer</a>：基于真实的 Git 数据，创建面向用户的 GitHub 发布说明。<br>
 <a href="https://github.com/xingranya/sync-readme-wiki">sync-readme-wiki</a>：该项目用于根据真实代码变更范围（提交、提交区间、文件清单或功能清单）同步更新 README 与 wiki 文档，避免“凭空补文档”或“改了无关文档”。<br>
 <a href="https://github.com/ZardLi1115/readme-skill">readme-skill</a>：一项技能可以根据仓库信息生成 GitHub README 文件。</p>
 </details>
@@ -469,35 +464,10 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 </ul>
 </details>
 <details>
-<summary><h3>审查</h3></summary>
-<ul>
-<li><a href="https://github.com/alibaba/open-code-review">open-code-review</a>：一款 AI 驱动的代码审查 CLI 工具。</li>
-</ul>
-</details>
-<details>
-<summary><h3>联网搜索</h3></summary>
-<ul>
-<li><a href="https://github.com/anysearch-ai/anysearch-skill">anysearch-skill</a>：面向 AI 代理的统一实时搜索引擎技能。支持通用网页搜索、垂直领域搜索、并行批量搜索，以及整页内容提取。</li>
-<li><a href="https://github.com/upstash/context7">Context7</a>：为 LLMs 和 AI 代码编辑器提供最新的代码文档</li>
-<li><a href="https://github.com/dr-dumpling/paper-search-cli">Paper Search CLI</a>：一个面向 AI agent 的 Skill + CLI 包，基于独立的 Node.js 命令行工具构建，用于学术文献工作。</li>
-<li><a href="https://github.com/Sophomoresty/bpc-fetch">bpc-fetch</a>：付费墙绕过 — 搜索, 发现, 批量抓取新闻文章为 Markdown。</li>
-<li><a href="https://github.com/GuDaStudio/GrokSearch/tree/grok-with-tavily">GrokSearch</a>：通过 MCP 协议将 Grok 强大的实时搜索功能集成到 Claude 中！<br>
-<a href="https://linux.do/t/topic/1674101" rel="nofollow">模型太笨不会自己发散思维帮忙把信息搜全？L站/知乎有盾fetch不下来？grok搜的全但幻觉高的离谱？不存在嗷，统统不存在！</a></li>
-<li><a href="https://github.com/Episkey-G/GrokSearch-rs">GrokSearch-rs</a>：用于 Grok 网络搜索和 Tavily 支持的源代码检索的 Rust MCP 服务器。</li>
-<li><a href="https://github.com/BlueOcean223/grok-search">grok-search-skill</a>：一个 基于 <code class="notranslate">Grok</code> 强大的 <code class="notranslate">web_search</code> 能力，使用 xAI 的 Responses 协议，并辅以 Tavily、Firecrawl 增强信源的，增强 agent 的 <code class="notranslate">web_search</code>、<code class="notranslate">web_fetch</code>和 <code class="notranslate">map</code> 能力的 skill。<br>
-<a href="https://linux.do/t/topic/2564813" rel="nofollow">Grok Search：从Chat、Brave/Tavily到Responses</a></li>
-<li><a href="https://github.com/mimimaster/windsurf-search-mcp">windsurf-search-mcp</a>：用于 Windsurf/Devin 服务器端 Web 搜索。</li>
-<li><a href="https://github.com/konbakuyomu/smartsearch">smartsearch</a>：一个给 AI 助手和命令行用户使用的 CLI-first 网页研究工具。它把普通联网搜索、来源发现、网页正文抓取、站点 map、配置检查、Deep Research 离线规划和 live Deep Research 执行统一成一个可复现的命令层。</li>
-<li><a href="https://github.com/skernelx/MySearch-Proxy">MySearch-Proxy</a>：统一搜索 MCP、代理控制台和 Tavily、Firecrawl 和 Social / X 的技能。</li>
-<li><a href="https://github.com/exa-labs/agent-skills/tree/main/skills/exa-search">exa-search</a>：直接使用 cURL 或原始 HTTP 调用 Exa Search。<strong>感觉没什么用这个，免费额度好像不多。</strong></li>
-<li><a href="https://github.com/brave/brave-search-skills">brave-search-skills</a>：使用 Brave Search API 和 AI 编码代理的官方技能。<strong>功能挺多，免费额度要求绑卡。</strong></li>
-<li><a href="https://github.com/tavily-ai/skills">Tavily Agent Skills</a>：网络搜索、内容提取、网站爬虫、URL 发现和深度研究——由 Tavily CLI 提供支持。</li>
-<li><a href="https://github.com/firecrawl/cli">Firecrawl CLI</a>：Firecrawl 的 CLI 和代理技能 - 为您的 AI 代理添加抓取、搜索和浏览功能，可以使用反代或者自建。</li>
-<li></li>
-</ul>
-</details>
-<details>
-<summary><h3>视觉(可以看看智普的MCP)</h3></summary>
+<summary><h3>视觉</h3></summary>
+<blockquote>
+<p>可以看看智谱的MCP</p>
+</blockquote>
 <ul>
 <li><a href="https://github.com/tan-yong-sheng/ai-vision-mcp">ai-vision-mcp</a>：一个强大的 Model Context Protocol (MCP) 服务器，使用 Google Gemini 和 Vertex AI 模型提供 AI 驱动的图像和视频分析。</li>
 <li><a href="https://github.com/KatouMegumi-dar/pi-vision-tools">pi-vision-tools</a>：让 pi 具备「眼睛 + 手」的视觉能力工具集。</li>
@@ -508,52 +478,6 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://github.com/TheNomadInOrbit/Vision-MCP-Server">Vision-MCP-Server</a>：此 MCP 服务器通过 OpenRouter 的视觉模型为任何模型添加视觉能力，从而解决了这个问题。</li>
 <li><a href="https://github.com/kitlau86/agent-vision-mcp">agent-vision-mcp</a>：为非视觉 AI 模型提供图片分析能力的 MCP 服务器</li>
 <li><a href="https://github.com/hellowind777/hellomedia">hellomedia</a>：面向 Agent 的多模态技能：图像 / 视频 / 音频的理解与生成。</li>
-<li></li>
-</ul>
-</details>
-<details>
-<summary><h3>前端/设计</h3></summary>
-<blockquote>
-<p>色彩：绿萤石，矩阵萤石，蓝萤石，金矿石，孔雀石，石榴石</p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/pbakaus/impeccable">impeccable</a>：针对 AI 编码代理的设计指南。1 项技能，23 条命令，实时浏览器迭代，以及 59 条确定性检测规则，用于 AI 生成的前端设计。</li>
-<li><a href="https://github.com/yg2224/app-shell-ui">app-shell-ui</a>：一套可由 Codex、Claude Code、Grok 等 agent 加载的前端设计与实现规范。<strong>还行其实，比较简洁。</strong></li>
-<li><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">ui-ux-pro-max-skill</a>：一个为跨多平台和框架构建专业 UI/UX 提供设计智能的 AI 技能。<br>
-<strong>评价：</strong> 希望AI能从零到一地为你生成一套完整、专业的设计方案和追求精确和全面，希望每个设计决策（颜色、字体、布局）都有据可循。<code class="notranslate">ui-ux-pro-max-skill</code> 是“设计师”：它知识渊博，体系完整，能帮你搭建稳固、专业的设计基础。</li>
-<li><a href="https://github.com/Leonxlnx/taste-skill">taste-skill</a>：为你的 AI 带来良好的品味。阻止 AI 生成乏味、通用的糟粕，给 UI “去 AI 味” 这方面热度最高的 skill。<br>
-<strong>评价：</strong> AI生成的界面虽然“对”，但总是平庸、无聊、充满“AI味”。希望实验性和风格化的设计，希望快速尝试极简、野兽派等不同视觉方向。希望通过调节“创意旋钮” 来微调AI的“个性”，并且偏好一个完全开源、轻量级的工具。<code class="notranslate">taste-skill</code> 是“艺术家”：它充满个性，剑走偏锋，能帮你的作品注入独特的灵魂，摆脱平庸。</li>
-<li><a href="https://stitch.withgoogle.com" rel="nofollow">stitch</a><br>
-<a href="https://linux.do/t/topic/2059982" rel="nofollow">codex的前端小技巧</a></li>
-<li><a href="https://github.com/alchaincyf/huashu-design">huashu-design</a>：HTML 原生的设计 skill · 高保真原型 / 幻灯片 / 动画 + 20 设计哲学 + 5 维评审 + MP4 导出 · Agent-agnostic。<br>
-<a href="https://www.bilibili.com/video/BV1QQEN6mEgH/" rel="nofollow">我逆向了Claude Design！</a></li>
-<li><a href="https://github.com/dandandujie/vibedesign">vibedesign</a>：本地 Claude Design 复刻版（BYOK）——聊天驱动的设计工作台。Web + Electron（Win/Mac）。<strong>还原很高。</strong></li>
-<li><a href="https://github.com/OpenCoworkAI/open-codesign">open-codesign</a>：开源的 Claude Design 替代方案。一键导入您的 Claude 代码/Codex API 密钥。快速生成原型/幻灯片/PDF。支持多种模型（Claude、GPT、Gemini、Kimi、GLM、Ollama）。自带密钥 (BYOK)，本地优先，MIT 许可。</li>
-<li><a href="https://github.com/JimLiu/baoyu-design">baoyu-design</a>：将 Claude Design 作为代理技能在本地运行。</li>
-<li><a href="https://github.com/nexu-io/open-design">open-design</a>：开源的 Claude Design 替代方案。</li>
-<li><a href="https://github.com/facebook/astryx">astryx</a>：一个完全可定制且可直接供代理使用的开源设计系统。</li>
-<li><a href="https://github.com/DouyinFE/semi-design">semi-design</a>：一个现代、全面、灵活的设计系统和 React UI 库，内置 AI 友好功能。</li>
-<li><a href="https://github.com/shadcn-ui/ui">shadcn-ui</a>：一套设计精美、易于使用的组件和一个代码分发平台。<br>
-<a href="https://ui.shadcn.com/docs/skills" rel="nofollow">shadcn/ui 组件技能。</a></li>
-<li><a href="https://github.com/juliangarnier/anime/issues/1164" data-hovercard-type="issue" data-hovercard-url="/juliangarnier/anime/issues/1164/hovercard">anime</a>：JavaScript 动画引擎。<br>
-<a href="https://github.com/BowTiedSwan/animejs-skills">animejs-skills</a>：适用于 Anime.js v4 - 全面的 JavaScript 动画库文档和示例。</li>
-<li><a href="https://github.com/img2threejs/img2threejs">img2threejs</a>：将参考图像中的对象重建为纯代码的、过程式的 Three.js 模型。</li>
-<li><a href="https://github.com/ZSeven-W/openpencil">OpenPencil</a>：AI 原生矢量设计工具——一个 Rust 工作区，可从单一代码库编译出原生桌面二进制文件、浏览器 WASM 包和 CLI。</li>
-<li><a href="https://github.com/google-labs-code/design.md">design.md</a>：一种用于向编码代理描述视觉标识的格式规范。DESIGN.md 为代理提供对设计系统的持久、结构化的理解。</li>
-<li><a href="https://github.com/ConardLi/garden-skills">garden-skills</a>：ConradLi 的开源 Skills 集合，涵盖网页设计、知识检索、图像生成以及更多。</li>
-<li><a href="https://github.com/diffusionstudio/lottie">lottie</a>：生成可投产的 Lottie 动画。</li>
-<li><a href="https://github.com/dabaibian/css-skills">css-skills</a>：提供纯 CSS 悬停效果和微交互功能。</li>
-<li><a href="https://github.com/neobrutalism/neobrutalism">neobrutalism</a>：一个采用新粗野主义风格的 React + TailwindCSS UI 库，用于构建大胆、现代的 Web 应用程序。</li>
-<li><a href="https://linux.do/t/topic/1811898" rel="nofollow">UI 提示词相关网站</a></li>
-<li></li>
-</ul>
-</details>
-<details>
-<summary><h3>测试</h3></summary>
-<ul>
-<li><a href="https://github.com/buer2233/ai-api-test-skill">ai-api-test-skill</a>：AI接口自动化测试 Skill：面向 Python + pytest + requests，驱动 Codex / Claude Code 生成、维护和调试接口用例。</li>
-<li><a href="https://github.com/winhok/testkit">testkit</a>：一套面向软件测试工作的 Agent Skills 工具集</li>
-<li><a href="https://agentskillsforall.com" rel="nofollow">agent-skills</a>：扩展代理在测试、自动化、数据、网络等多个领域的能力</li>
 <li></li>
 </ul>
 </details>
@@ -722,6 +646,75 @@ prototype 一般要新开一个 session 去完成，前后用 handoff 交接。<
 <li><a href="https://github.com/sdiehl/sympy-mcp">sympy-mcp</a>：一个 Model Context 协议 服务器，用于让 LLMs 自动执行符号数学和计算代数。它向 MCP 客户端公开了 SymPy 核心功能中的众多工具，以便对数学表达式和方程式进行操作。</li>
 <li><a href="https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/sympy">scientific-agent-skills-sympy</a>：当你需要在 Python 中进行精确的符号数学运算时使用——代数、微积分、方程求解、符号线性代数，或通过 lambdify/LaTeX 进行代码生成。</li>
 <li><a href="https://github.com/jihe520/MathModelAgent">*<strong>MathModelAgent</strong></a>：专为数学建模设计的 Agent &amp; skills ,自动完成数学建模，生成一份完整的可以直接提交的论文。</li>
+<li></li>
+</ul>
+</details>
+<details>
+<summary><h3>联网搜索</h3></summary>
+<ul>
+<li><a href="https://github.com/anysearch-ai/anysearch-skill">anysearch-skill</a>：面向 AI 代理的统一实时搜索引擎技能。支持通用网页搜索、垂直领域搜索、并行批量搜索，以及整页内容提取。</li>
+<li><a href="https://github.com/upstash/context7">Context7</a>：为 LLMs 和 AI 代码编辑器提供最新的代码文档</li>
+<li><a href="https://github.com/dr-dumpling/paper-search-cli">Paper Search CLI</a>：一个面向 AI agent 的 Skill + CLI 包，基于独立的 Node.js 命令行工具构建，用于学术文献工作。</li>
+<li><a href="https://github.com/Sophomoresty/bpc-fetch">bpc-fetch</a>：付费墙绕过 — 搜索, 发现, 批量抓取新闻文章为 Markdown。</li>
+<li><a href="https://github.com/GuDaStudio/GrokSearch/tree/grok-with-tavily">GrokSearch</a>：通过 MCP 协议将 Grok 强大的实时搜索功能集成到 Claude 中！<br>
+<a href="https://linux.do/t/topic/1674101" rel="nofollow">模型太笨不会自己发散思维帮忙把信息搜全？L站/知乎有盾fetch不下来？grok搜的全但幻觉高的离谱？不存在嗷，统统不存在！</a></li>
+<li><a href="https://github.com/Episkey-G/GrokSearch-rs">GrokSearch-rs</a>：用于 Grok 网络搜索和 Tavily 支持的源代码检索的 Rust MCP 服务器。</li>
+<li><a href="https://github.com/BlueOcean223/grok-search">grok-search-skill</a>：一个 基于 <code class="notranslate">Grok</code> 强大的 <code class="notranslate">web_search</code> 能力，使用 xAI 的 Responses 协议，并辅以 Tavily、Firecrawl 增强信源的，增强 agent 的 <code class="notranslate">web_search</code>、<code class="notranslate">web_fetch</code>和 <code class="notranslate">map</code> 能力的 skill。<br>
+<a href="https://linux.do/t/topic/2564813" rel="nofollow">Grok Search：从Chat、Brave/Tavily到Responses</a></li>
+<li><a href="https://github.com/mimimaster/windsurf-search-mcp">windsurf-search-mcp</a>：用于 Windsurf/Devin 服务器端 Web 搜索。</li>
+<li><a href="https://github.com/konbakuyomu/smartsearch">smartsearch</a>：一个给 AI 助手和命令行用户使用的 CLI-first 网页研究工具。它把普通联网搜索、来源发现、网页正文抓取、站点 map、配置检查、Deep Research 离线规划和 live Deep Research 执行统一成一个可复现的命令层。</li>
+<li><a href="https://github.com/skernelx/MySearch-Proxy">MySearch-Proxy</a>：统一搜索 MCP、代理控制台和 Tavily、Firecrawl 和 Social / X 的技能。</li>
+<li><a href="https://github.com/exa-labs/agent-skills/tree/main/skills/exa-search">exa-search</a>：直接使用 cURL 或原始 HTTP 调用 Exa Search。<strong>感觉没什么用这个，免费额度好像不多。</strong></li>
+<li><a href="https://github.com/brave/brave-search-skills">brave-search-skills</a>：使用 Brave Search API 和 AI 编码代理的官方技能。<strong>功能挺多，免费额度要求绑卡。</strong></li>
+<li><a href="https://github.com/tavily-ai/skills">Tavily Agent Skills</a>：网络搜索、内容提取、网站爬虫、URL 发现和深度研究——由 Tavily CLI 提供支持。</li>
+<li><a href="https://github.com/firecrawl/cli">Firecrawl CLI</a>：Firecrawl 的 CLI 和代理技能 - 为您的 AI 代理添加抓取、搜索和浏览功能，可以使用反代或者自建。</li>
+<li></li>
+</ul>
+</details>
+<details>
+<summary><h3>测试/审查</h3></summary>
+<ul>
+<li><a href="https://github.com/winhok/testkit">testkit</a>：一套面向软件测试工作的 Agent Skills 工具集。</li>
+<li><a href="https://agentskillsforall.com" rel="nofollow">agent-skills</a>：扩展代理在测试、自动化、数据、网络等多个领域的能力。</li>
+<li><a href="https://github.com/alibaba/open-code-review">open-code-review</a>：一款 AI 驱动的代码审查 CLI 工具。</li>
+<li><a href="https://github.com/buer2233/ai-api-test-skill">ai-api-test-skill</a>：AI接口自动化测试 Skill：面向 Python + pytest + requests，驱动 Codex / Claude Code 生成、维护和调试接口用例。</li>
+<li></li>
+</ul>
+</details>
+<details>
+<summary><h3>前端/设计</h3></summary>
+<blockquote>
+<p>色彩：绿萤石，矩阵萤石，蓝萤石，金矿石，孔雀石，石榴石</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/pbakaus/impeccable">impeccable</a>：针对 AI 编码代理的设计指南。1 项技能，23 条命令，实时浏览器迭代，以及 59 条确定性检测规则，用于 AI 生成的前端设计。</li>
+<li><a href="https://github.com/yg2224/app-shell-ui">app-shell-ui</a>：一套可由 Codex、Claude Code、Grok 等 agent 加载的前端设计与实现规范。<strong>还行其实，比较简洁。</strong></li>
+<li><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">ui-ux-pro-max-skill</a>：一个为跨多平台和框架构建专业 UI/UX 提供设计智能的 AI 技能。<br>
+<strong>评价：</strong> 希望AI能从零到一地为你生成一套完整、专业的设计方案和追求精确和全面，希望每个设计决策（颜色、字体、布局）都有据可循。<code class="notranslate">ui-ux-pro-max-skill</code> 是“设计师”：它知识渊博，体系完整，能帮你搭建稳固、专业的设计基础。</li>
+<li><a href="https://github.com/Leonxlnx/taste-skill">taste-skill</a>：为你的 AI 带来良好的品味。阻止 AI 生成乏味、通用的糟粕，给 UI “去 AI 味” 这方面热度最高的 skill。<br>
+<strong>评价：</strong> AI生成的界面虽然“对”，但总是平庸、无聊、充满“AI味”。希望实验性和风格化的设计，希望快速尝试极简、野兽派等不同视觉方向。希望通过调节“创意旋钮” 来微调AI的“个性”，并且偏好一个完全开源、轻量级的工具。<code class="notranslate">taste-skill</code> 是“艺术家”：它充满个性，剑走偏锋，能帮你的作品注入独特的灵魂，摆脱平庸。</li>
+<li><a href="https://stitch.withgoogle.com" rel="nofollow">stitch</a><br>
+<a href="https://linux.do/t/topic/2059982" rel="nofollow">codex的前端小技巧</a></li>
+<li><a href="https://github.com/alchaincyf/huashu-design">huashu-design</a>：HTML 原生的设计 skill · 高保真原型 / 幻灯片 / 动画 + 20 设计哲学 + 5 维评审 + MP4 导出 · Agent-agnostic。<br>
+<a href="https://www.bilibili.com/video/BV1QQEN6mEgH/" rel="nofollow">我逆向了Claude Design！</a></li>
+<li><a href="https://github.com/dandandujie/vibedesign">vibedesign</a>：本地 Claude Design 复刻版（BYOK）——聊天驱动的设计工作台。Web + Electron（Win/Mac）。<strong>还原很高。</strong></li>
+<li><a href="https://github.com/OpenCoworkAI/open-codesign">open-codesign</a>：开源的 Claude Design 替代方案。一键导入您的 Claude 代码/Codex API 密钥。快速生成原型/幻灯片/PDF。支持多种模型（Claude、GPT、Gemini、Kimi、GLM、Ollama）。自带密钥 (BYOK)，本地优先，MIT 许可。</li>
+<li><a href="https://github.com/JimLiu/baoyu-design">baoyu-design</a>：将 Claude Design 作为代理技能在本地运行。</li>
+<li><a href="https://github.com/nexu-io/open-design">open-design</a>：开源的 Claude Design 替代方案。</li>
+<li><a href="https://github.com/facebook/astryx">astryx</a>：一个完全可定制且可直接供代理使用的开源设计系统。</li>
+<li><a href="https://github.com/DouyinFE/semi-design">semi-design</a>：一个现代、全面、灵活的设计系统和 React UI 库，内置 AI 友好功能。</li>
+<li><a href="https://github.com/shadcn-ui/ui">shadcn-ui</a>：一套设计精美、易于使用的组件和一个代码分发平台。<br>
+<a href="https://ui.shadcn.com/docs/skills" rel="nofollow">shadcn/ui 组件技能。</a></li>
+<li><a href="https://github.com/juliangarnier/anime/issues/1164" data-hovercard-type="issue" data-hovercard-url="/juliangarnier/anime/issues/1164/hovercard">anime</a>：JavaScript 动画引擎。<br>
+<a href="https://github.com/BowTiedSwan/animejs-skills">animejs-skills</a>：适用于 Anime.js v4 - 全面的 JavaScript 动画库文档和示例。</li>
+<li><a href="https://github.com/img2threejs/img2threejs">img2threejs</a>：将参考图像中的对象重建为纯代码的、过程式的 Three.js 模型。</li>
+<li><a href="https://github.com/ZSeven-W/openpencil">OpenPencil</a>：AI 原生矢量设计工具——一个 Rust 工作区，可从单一代码库编译出原生桌面二进制文件、浏览器 WASM 包和 CLI。</li>
+<li><a href="https://github.com/google-labs-code/design.md">design.md</a>：一种用于向编码代理描述视觉标识的格式规范。DESIGN.md 为代理提供对设计系统的持久、结构化的理解。</li>
+<li><a href="https://github.com/ConardLi/garden-skills">garden-skills</a>：ConradLi 的开源 Skills 集合，涵盖网页设计、知识检索、图像生成以及更多。</li>
+<li><a href="https://github.com/diffusionstudio/lottie">lottie</a>：生成可投产的 Lottie 动画。</li>
+<li><a href="https://github.com/dabaibian/css-skills">css-skills</a>：提供纯 CSS 悬停效果和微交互功能。</li>
+<li><a href="https://github.com/neobrutalism/neobrutalism">neobrutalism</a>：一个采用新粗野主义风格的 React + TailwindCSS UI 库，用于构建大胆、现代的 Web 应用程序。</li>
+<li><a href="https://linux.do/t/topic/1811898" rel="nofollow">UI 提示词相关网站</a></li>
 <li></li>
 </ul>
 </details>
