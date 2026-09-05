@@ -1,8 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Sat, 05 Sep 2026 09:06:12 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>【转载】四个代码语义搜索工具的对比</title><link>https://WslzGmzs.github.io/post/%E3%80%90-zhuan-zai-%E3%80%91-si-ge-dai-ma-yu-yi-sou-suo-gong-ju-de-dui-bi.html</link><description>&gt; 转载地址：https://linux.do/t/topic/2254867 
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</title><link>https://WslzGmzs.github.io</link><description>𒋻 𒐖𒆸𐎏𒐕𐏓𒀼 𐏓𒆸𐎠𒇬𒑚𒈦𒀼𒇲 𒑚𒔼𒀼𒇲 𒉼𒀂𒆸 𒐕𒔼 𒔼𒈦𒐕𒁇𒁇 𒁇𒀼𒋻𒇲𒐖𒐕𒐖𒋝 𒈦𒀂𒀼 𒇲𒆸𒇬𒀼𒔼.</description><copyright>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/200838321?v=4</url><title>avatar</title><link>https://WslzGmzs.github.io</link></image><lastBuildDate>Sat, 05 Sep 2026 09:11:35 +0000</lastBuildDate><managingEditor>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</managingEditor><ttl>60</ttl><webMaster>𝓦𝓈𝓁𝓏𝓖𝓂𝓏𝓈 𝓑𝓵𝓸𝓰</webMaster><item><title>【转载】四个代码语义搜索工具的对比</title><link>https://WslzGmzs.github.io/post/%E3%80%90-zhuan-zai-%E3%80%91-si-ge-dai-ma-yu-yi-sou-suo-gong-ju-de-dui-bi.html</link><description>&gt; 转载地址：https://linux.do/t/topic/2254867 
 &gt; 原贴已删，具体作者因为无法再次查看原贴已不可查，这里作为参考留存，侵删。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/%E3%80%90-zhuan-zai-%E3%80%91-si-ge-dai-ma-yu-yi-sou-suo-gong-ju-de-dui-bi.html</guid><pubDate>Wed, 02 Sep 2026 16:21:32 +0000</pubDate></item><item><title>【从能人智工到人工智能】参考资料</title><link>https://WslzGmzs.github.io/post/%E3%80%90-cong-neng-ren-zhi-gong-dao-ren-gong-zhi-neng-%E3%80%91-can-kao-zi-liao.html</link><description>&gt; 这些资料由人工整理和编辑，如有出错还请见谅，其实一大部分只是为了收集而收集，强迫症而已，算是丰富生态吧，事实证明平时收藏太多东西不太好，到整理的时候整理得腰酸背痛
 
-- [SkillOpt](https://github.com/microsoft/SkillOpt)：一种文本空间优化器，通过轨迹驱动的编辑、验证门控的更新，以及可部署的 best_skill.md 人工制品，为冻结的 LLM 代理训练可重用的自然语言技能。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/%E3%80%90-cong-neng-ren-zhi-gong-dao-ren-gong-zhi-neng-%E3%80%91-can-kao-zi-liao.html</guid><pubDate>Mon, 17 Aug 2026 08:03:28 +0000</pubDate></item><item><title>记——PocoClaw部署过程</title><link>https://WslzGmzs.github.io/post/ji-%E2%80%94%E2%80%94PocoClaw-bu-shu-guo-cheng.html</link><description>### 花了半天时间部署，把坑都踩了一遍
+&lt;details open&gt;
+&lt;summary&gt;&lt;h1&gt;【工具】&lt;/h1&gt;&lt;/summary&gt;
+
+&lt;details open&gt;
+&lt;summary&gt;&lt;h2&gt;[前提工具]&lt;/h2&gt;&lt;/summary&gt;
+
+&gt; 基于windows系统的前提
+
+---
+
+### [wsl-dashboard](https://github.com/owu/wsl-dashboard)
+&gt; 一款现代、高性能、轻量级且低内存占用的 WSL (Windows Subsystem for Linux) 实例管理仪表板。</description><guid isPermaLink="true">https://WslzGmzs.github.io/post/%E3%80%90-cong-neng-ren-zhi-gong-dao-ren-gong-zhi-neng-%E3%80%91-can-kao-zi-liao.html</guid><pubDate>Mon, 17 Aug 2026 08:03:28 +0000</pubDate></item><item><title>记——PocoClaw部署过程</title><link>https://WslzGmzs.github.io/post/ji-%E2%80%94%E2%80%94PocoClaw-bu-shu-guo-cheng.html</link><description>### 花了半天时间部署，把坑都踩了一遍
 
 ---
 
