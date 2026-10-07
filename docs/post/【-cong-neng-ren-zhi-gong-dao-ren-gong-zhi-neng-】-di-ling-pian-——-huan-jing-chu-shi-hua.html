@@ -511,7 +511,7 @@ npx @cometix/ccursor install
 认证类型：Auth Token<br>
 API基础URL：<a href="https://anyrouter.top" rel="nofollow">https://anyrouter.top</a><br>
 API密钥：sk-you-token-to-here<br>
-主要使用的模型名称：claude-opus-5-5[1M]<br>
+主要使用的模型名称：opus[1m]<br>
 默认 Haiku 模型名称：回车跳过<br>
 默认 Sonnet 模型名称：同上<br>
 默认 Opus 模型名称：同上<br>
@@ -582,6 +582,69 @@ API密钥：sk-you-token-to-here<br>
 <pre class="notranslate"><code class="notranslate">"CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
 "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "85"
 </code></pre>
+<ol start="4">
+<li>完整配置奉上</li>
+</ol>
+<details>
+<summary>settings.json</summary>
+<pre class="notranslate"><code class="notranslate">{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
+    "MCP_TIMEOUT": "60000",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "85",
+    "ANTHROPIC_AUTH_TOKEN": "sk-5SSYj8O6bbHCRd9o5StBYDsXF5pxp4xN2XTbZKbtBjLEB9os",
+    "ANTHROPIC_BASE_URL": "https://anyrouter.top",
+    "ANTHROPIC_MODEL": "opus[1m]"
+  },
+  "cleanupPeriodDays": 9999,
+  "alwaysThinkingEnabled": true,
+  "autoDreamEnabled": true,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Edit",
+      "Glob",
+      "Grep",
+      "KillShell",
+      "LS",
+      "LSP",
+      "MultiEdit",
+      "NotebookEdit",
+      "NotebookRead",
+      "Read",
+      "Skill",
+      "Task",
+      "TaskCreate",
+      "TaskGet",
+      "TaskList",
+      "TaskOutput",
+      "TaskStop",
+      "TaskUpdate",
+      "TodoWrite",
+      "ToolSearch",
+      "WebFetch",
+      "WebSearch",
+      "Write"
+    ],
+    "deny": []
+  },
+  "outputStyle": "default",
+  "statusLine": {
+    "type": "command",
+    "command": "ccstatusline-zh",
+    "padding": 0,
+    "refreshInterval": 10
+  }
+}
+</code></pre>
+</details>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
