@@ -591,6 +591,11 @@ API密钥：sk-you-token-to-here<br>
 </ul>
 <pre class="notranslate"><code class="notranslate">"CLAUDE_CODE_THRIFTY_SONIC": "0"
 </code></pre>
+<ul>
+<li>允许它自动从该网关获取模型列表(env)</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">"CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
+</code></pre>
 <ol start="4">
 <li>完整配置奉上</li>
 </ol>
@@ -599,10 +604,11 @@ API密钥：sk-you-token-to-here<br>
 <pre class="notranslate"><code class="notranslate">{
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
+    "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
-	"CLAUDE_CODE_NEW_INIT": "1",
     "CLAUDE_CODE_THRIFTY_SONIC": "0",
+    "CLAUDE_CODE_NEW_INIT": "1",
     "MCP_TIMEOUT": "60000",
     "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
     "ANTHROPIC_AUTH_TOKEN": "sk-you-token-to-here",
@@ -655,6 +661,9 @@ API密钥：sk-you-token-to-here<br>
 }
 </code></pre>
 </details>
+</details>
+<details open="">
+<summary><h2>安装skills-manager</h2></summary>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
