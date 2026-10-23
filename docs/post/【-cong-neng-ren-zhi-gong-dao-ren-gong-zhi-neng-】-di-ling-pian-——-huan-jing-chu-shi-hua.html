@@ -502,7 +502,7 @@ npx @cometix/ccursor install
 <hr>
 <ul>
 <li>添加转发规则：条件 “模型” ，然后输入 <code class="notranslate">*claude*</code> 。 <code class="notranslate">*</code> 匹配任何字符，匹配不区分大小写。</li>
-<li>在 “转发至” 下，选择 “指定型号” ，选择上游并输入型号名称。可以添加备份，备份将按顺序尝试。将该规则置于任何其他匹配项之上。参考 <code class="notranslate">[官方说法](https://github.com/ThinkWatchProject/ThinkWatch-Lite/issues/357#issuecomment-6340399433)</code></li>
+<li>在 “转发至” 下，选择 “指定型号” ，选择上游并输入型号名称。可以添加备份，备份将按顺序尝试。将该规则置于任何其他匹配项之上。参考 <a href="https://github.com/ThinkWatchProject/ThinkWatch-Lite/issues/357#issuecomment-6340399433" data-hovercard-type="issue" data-hovercard-url="/ThinkWatchProject/ThinkWatch-Lite/issues/357/hovercard">官方说法</a></li>
 </ul>
 <hr>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a6c1056e-d3f3-41b6-b528-59dbfbc3a822"><img width="871" height="863" alt="Image" src="https://github.com/user-attachments/assets/a6c1056e-d3f3-41b6-b528-59dbfbc3a822" style="max-width: 100%; height: auto; max-height: 863px;; aspect-ratio: 871 / 863; background-color: var(--bgColor-muted); border-radius: 6px" class="js-gh-image-fallback"></a>
@@ -682,8 +682,12 @@ API密钥：sk-you-token-to-here<br>
 </code></pre>
 </details>
 <ol start="5">
-<li>如果使用 ThinkWatch</li>
+<li>如果使用 ThinkWatch<br>
+把 URL 和 认证token 改成 ThinkWatch 的就好了，<code class="notranslate">ANTHROPIC_MODEL</code>可以删除，<code class="notranslate">172.23.80.1</code>参考代理在 WSL 使用<code class="notranslate">cat /etc/resolv.conf | grep nameserver | awk '{print $2}'</code>获取</li>
 </ol>
+<pre class="notranslate"><code class="notranslate">"ANTHROPIC_BASE_URL": "http://172.23.80.1:8788",
+"ANTHROPIC_AUTH_TOKEN": "tw-xxx"
+</code></pre>
 </details>
 <details open="">
 <summary><h2>安装skills-manager</h2></summary>
