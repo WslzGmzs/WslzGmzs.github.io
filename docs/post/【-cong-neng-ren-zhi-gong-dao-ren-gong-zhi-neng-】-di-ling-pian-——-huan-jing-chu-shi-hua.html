@@ -490,6 +490,19 @@ npm -v
 <pre class="notranslate"><code class="notranslate">$env:CCURSOR_CURSOR_ROOT = "D:\你的自定义安装路径\resources\app"
 npx @cometix/ccursor install
 </code></pre>
+<details open="">
+<summary><b>2. 安装 [ThinkWatch](https://github.com/ThinkWatchProject/ThinkWatch-Lite/releases)（选择它是因为简单易上手和轻量一点，不使用也是可以的，但是可能会出现分类器等一些的问题，主要是为了方便配置和解决对第三方非Claude模型的兼容问题）</b></summary>
+<ul>
+<li>先新建一个上游</li>
+<li>可以新建一个key(用默认的也可以)</li>
+<li>在“路由”页面上，打开默认密钥使用的路由或者新建一个路由，然后 “添加规则”</li>
+</ul>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4b34b749-46f9-4b5e-aceb-fdc32f6d601d"><img width="1155" height="542" alt="Image" src="https://github.com/user-attachments/assets/4b34b749-46f9-4b5e-aceb-fdc32f6d601d" style="max-width: 100%; height: auto; max-height: 542px;; aspect-ratio: 1155 / 542; background-color: var(--bgColor-muted); border-radius: 6px" class="js-gh-image-fallback"></a>
+- 添加转发规则：条件 “模型” ，然后输入 `*claude*` 。 `*` 匹配任何字符，匹配不区分大小写。
+- 在 “转发至” 下，选择 “指定型号” ，选择上游并输入型号名称。可以添加备份，备份将按顺序尝试。将该规则置于任何其他匹配项之上。参考 [官方说法](https://github.com/<a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="5957415161" data-permission-text="Title is private" data-url="https://github.com/ThinkWatchProject/ThinkWatch-Lite/issues/357" data-hovercard-type="issue" data-hovercard-url="/ThinkWatchProject/ThinkWatch-Lite/issues/357/hovercard" href="https://github.com/ThinkWatchProject/ThinkWatch-Lite/issues/357">ThinkWatchProject/ThinkWatch-Lite/issues/357</a>#issuecomment-6340399433)
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a6c1056e-d3f3-41b6-b528-59dbfbc3a822"><img width="871" height="863" alt="Image" src="https://github.com/user-attachments/assets/a6c1056e-d3f3-41b6-b528-59dbfbc3a822" style="max-width: 100%; height: auto; max-height: 863px;; aspect-ratio: 871 / 863; background-color: var(--bgColor-muted); border-radius: 6px" class="js-gh-image-fallback"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/92dae415-3109-40c1-bc78-7d0d2d14a40f"><img width="1192" height="527" alt="Image" src="https://github.com/user-attachments/assets/92dae415-3109-40c1-bc78-7d0d2d14a40f" style="max-width: 100%; height: auto; max-height: 527px;; aspect-ratio: 1192 / 527; background-color: var(--bgColor-muted); border-radius: 6px" class="js-gh-image-fallback"></a>
+</details>
 </details>
 <details open="">
 <summary><h2>安装Claude Code</h2></summary>
