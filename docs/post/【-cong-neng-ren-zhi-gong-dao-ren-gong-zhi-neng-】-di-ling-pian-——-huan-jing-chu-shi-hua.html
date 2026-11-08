@@ -524,7 +524,7 @@ npx @cometix/ccursor install
 <ul>
 <li><strong>然后直接选择 1 完整初始化（仅第一次初始化配置的时候用此项，会覆盖配置）</strong></li>
 <li>模板语言配置: 英文(按自己需求选择，决定下载skill的语言版本，英文省token一些)</li>
-<li>配置 AI 输出语言：1. 简体中文(按自己需求选择)</li>
+<li>配置 AI 输出语言：简体中文(按自己需求选择)</li>
 <li>选择自动安装 Claude Code</li>
 <li>安装方式选择 curl，其次是 homebrew</li>
 <li>已有配置文件：1. 备份并覆盖全部</li>
@@ -532,8 +532,8 @@ npx @cometix/ccursor install
 这里以 <a href="https://anyrouter.top" rel="nofollow">AnyRouter</a> 为例，有参考<a href="https://linux.do/t/topic/1779614" rel="nofollow">Any牌路由器使用清障！</a><br>
 配置名称：AnyRouter<br>
 认证类型：Auth Token<br>
-API基础URL：<a href="https://anyrouter.top" rel="nofollow">https://anyrouter.top</a><br>
-API密钥：sk-you-token-to-here<br>
+API 基础 URL：<a href="https://anyrouter.top" rel="nofollow">https://anyrouter.top</a><br>
+API 密钥：sk-you-token-to-here<br>
 主要使用的模型名称：opus[1m]<br>
 默认 Haiku 模型名称：回车跳过<br>
 默认 Sonnet 模型名称：同上<br>
@@ -751,6 +751,73 @@ API密钥：sk-you-token-to-here<br>
 <hr>
 <details open="">
 <summary><h2>安装配置 Codex</h2></summary>
+<ol>
+<li>前置<br>
+安装 <code class="notranslate">bubblewrap</code></li>
+</ol>
+<pre class="notranslate"><code class="notranslate">sudo apt install bubblewrap
+</code></pre>
+<ol start="2">
+<li>安装(这里选择安装哈雷的二开版本)</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">npm install -g @cometix/codex
+</code></pre>
+<details>
+<summary>官方的安装命令如下</summary>
+<pre class="notranslate"><code class="notranslate">npm install -g @openai/codex
+</code></pre>
+</details>
+<ol start="3">
+<li>ZCF</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">npx zcf
+</code></pre>
+<ul>
+<li>输入<code class="notranslate">s</code>切换到 <strong>Codex</strong></li>
+<li><strong>然后直接选择 1 完整初始化（仅第一次初始化配置的时候用此项，会覆盖配置）</strong></li>
+<li>配置 AI 输出语言：简体中文(按自己需求选择)</li>
+<li>模板语言配置: 英文(按自己需求选择，决定下载skill的语言版本，英文省token一些)</li>
+<li>选择全局默认输出风格：按照自己想法来，可能有一定程度影响代码质量，全流程取消不了这个，不喜欢的到时候去<code class="notranslate">~/.codex/AGENTS.md</code>删除好了</li>
+<li>选择要安装的工作流类型：<del>Git 指令</del>（之前配置 CC 的时候安装过了）</li>
+<li>API 配置模式：自定义 API 配置<br>
+这里以 ThinkWatch 为例<br>
+提供商名称：ThinkWatch<br>
+API 基础 URL：<a href="http://172.23.80.1:8788/v1" rel="nofollow">http://172.23.80.1:8788/v1</a><br>
+API 密钥：tw-xxx<br>
+自定义模型名称：deepseek-v4.1-flash<br>
+继续添加其他提供商：no<br>
+选择默认提供商：ThinkWatch</li>
+<li>是否配置 MCP 服务：no(我这里暂时不选择安装它推荐的mcp，都还行，看个人想法，我选择使用skill)</li>
+<li>输入q退出</li>
+</ul>
+<ol start="4">
+<li>第三方API，模型和压缩</li>
+</ol>
+<ul>
+<li>一般来说我只推荐在 Codex 上使用它们自己家的 GPT 模型，所以说安装完成直接<code class="notranslate">codex</code>登录使用就好了，不用折腾这些，主要是应对中转站和多账号这方面的</li>
+<li>远程压缩，内置搜索和生图可以看着这个<a href="https://linux.do/t/topic/2684749" rel="nofollow">贴子</a></li>
+</ul>
+<ol start="5">
+<li>完整配置参考</li>
+</ol>
+<details>
+<summary>config.toml</summary>
+<pre class="notranslate"><code class="notranslate">model_provider = "thinkwatch"
+
+[model_providers]
+
+[model_providers.thinkwatch]
+name = "OpenAI"
+wire_api = "responses"
+requires_openai_auth = false
+supports_websockets = false
+base_url = "http://172.23.80.1:8788/v1"
+experimental_bearer_token = "tw-xxx"
+
+[model_providers.thinkwatch.http_headers]
+X-ThinkWatch-Client = "codex"
+</code></pre>
+</details>
 </details>
 <hr>
 <details open="">
