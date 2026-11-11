@@ -634,7 +634,7 @@ API 密钥：sk-you-token-to-here<br>
 <pre class="notranslate"><code class="notranslate">"CLAUDE_CODE_THRIFTY_SONIC": "0"
 </code></pre>
 <ul>
-<li>允许它自动从该网关获取模型列表<a href="env">没啥用，只接受id包含 claude 或 anthropic 的模型</a></li>
+<li>允许它自动从该网关获取模型列表（没啥用，只接受id包含 claude 或 anthropic 的模型）(env)</li>
 </ul>
 <pre class="notranslate"><code class="notranslate">"CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
 </code></pre>
@@ -804,6 +804,12 @@ API 密钥：tw-xxx<br>
 <summary>config.toml</summary>
 <pre class="notranslate"><code class="notranslate">model_provider = "thinkwatch"
 
+[features]
+steer = true
+memories = true
+daemon_auto_start = false
+api_key_model_discovery = true
+
 [model_providers]
 
 [model_providers.thinkwatch]
@@ -812,10 +818,14 @@ wire_api = "responses"
 requires_openai_auth = false
 supports_websockets = false
 base_url = "http://172.23.80.1:8788/v1"
+model_catalog_url = "http://172.23.80.1:8788/codex/models"
 experimental_bearer_token = "tw-xxx"
 
 [model_providers.thinkwatch.http_headers]
 X-ThinkWatch-Client = "codex"
+
+[tui]
+screen_reader_detection_done = true
 </code></pre>
 </details>
 </details>
