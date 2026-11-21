@@ -874,7 +874,7 @@ screen_reader_detection_done = true
 <pre class="notranslate"><code class="notranslate">curl -fsSL https://pi.dev/install.sh | sh
 </code></pre>
 <ol start="2">
-<li>配置 API 和模型</li>
+<li>配置 API 和模型（快捷键： <code class="notranslate">Tab+Shift</code> 切换推理强度，<code class="notranslate">Alt+P</code> 切换模型）</li>
 </ol>
 <ul>
 <li>
@@ -891,10 +891,82 @@ API：OpenAI Responses<br>
 Name：ThinkWatch<br>
 API key：tw-xxx</p>
 </li>
+<li>
+<p>或者直接创建并编辑 <code class="notranslate">~/.pi/agent/models.json</code>（相对麻烦）<br>
+示例：</p>
+</li>
 </ul>
+<pre class="notranslate"><code class="notranslate">{
+  "$schema": "https://pi.dev/schemas/models.schema.json",
+  "providers": {
+    "my-anthropic": {
+      "baseUrl": "https://api.anthropic.com/v1",
+      "api": "anthropic-messages",
+      "apiKey": "$ANTHROPIC_API_KEY",
+      "headers": {
+        "User-Agent": "claude-cli/2.1.177 (external, cli)",
+        "x-app": "cli",
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+        "anthropic-beta": "claude-code-20250219,context-1m-2025-08-07,interleaved-thinking-2025-05-14,redact-thinking-2026-02-12,context-management-2025-06-27,prompt-caching-scope-2026-01-05,mid-conversation-system-2026-04-07,effort-2025-11-24"
+      },
+      "models": [
+        {
+          "id": "claude-opus-4-8",
+          "name": "Claude Opus 4.8",
+          "api": "anthropic-messages",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": null,
+            "medium": null,
+            "high": "high",
+            "xhigh": "max"
+          },
+          "compat": {
+            "supportsEagerToolInputStreaming": false,
+            "supportsLongCacheRetention": true,
+            "forceAdaptiveThinking": true,
+            "allowEmptySignature": true
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          }
+        }
+      ]
+    }
+  }
+}
+</code></pre>
 <ol start="3">
-<li></li>
+<li>扩展（卸载只需要把安装命令的 <code class="notranslate">install</code> 加上 <code class="notranslate">un</code> 变成 <code class="notranslate">uninstall</code> 即可，这是 <code class="notranslate">remove</code> 的别名，所有扩展安装命令加上<code class="notranslate"> -l</code>即在当前目录进行项目级安装，默认是全局安装）</li>
 </ol>
+<ul>
+<li>
+<p>pi-btw：临时讨论</p>
+<pre class="notranslate"><code class="notranslate">
+</code></pre>
+</li>
+<li></li>
+</ul>
+<pre class="notranslate"><code class="notranslate">
+</code></pre>
+<ul>
+<li></li>
+</ul>
+<pre class="notranslate"><code class="notranslate">
+</code></pre>
+<ul>
+<li></li>
+</ul>
+<pre class="notranslate"><code class="notranslate">
+</code></pre>
 </details>
 <hr>
 <details open="">
