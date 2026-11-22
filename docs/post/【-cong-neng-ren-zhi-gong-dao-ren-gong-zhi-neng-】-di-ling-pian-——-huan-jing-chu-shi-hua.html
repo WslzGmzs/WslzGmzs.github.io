@@ -907,9 +907,10 @@ API key：tw-xxx</p>
 </code></pre>
 </li>
 <li>
-<p>Plannotator：计划模式</p>
+<p><a href="https://pi.dev/packages/@plannotator/pi-extension" rel="nofollow">Plannotator</a>：计划模式</p>
 <p><em>前置</em></p>
 <pre class="notranslate"><code class="notranslate">sudo apt install -y build-essential
+npm --prefix ~/.pi/agent/npm install-scripts approve node-pty
 </code></pre>
 <p><em>安装</em></p>
 <pre class="notranslate"><code class="notranslate">pi install npm:@plannotator/pi-extension
@@ -917,6 +918,17 @@ API key：tw-xxx</p>
 <p>WSL 关闭了与 Win 交互，浏览器打开不方便，需要设置 <code class="notranslate">export PLANNOTATOR_BROWSER=none</code>，永久生效在 <code class="notranslate">$HOME/.bashrc</code> 或 <code class="notranslate">$HOME/.zshrc</code> 等文件中添加或者执行下面命令</p>
 <pre class="notranslate"><code class="notranslate">echo 'export PLANNOTATOR_BROWSER=none' &gt;&gt; ~/.bashrc  
 source ~/.bashrc
+</code></pre>
+</li>
+<li>
+<p><a href="https://pi.dev/packages/@narumitw/pi-goal" rel="nofollow">goal</a>：让 Pi 朝着目标努力</p>
+<p><em>这个相对比较轻量，想要更多功能的可以安装<a href="https://pi.dev/packages/pi-goal-x" rel="nofollow">pi-goal-x</a></em></p>
+<pre class="notranslate"><code class="notranslate">pi install npm:@narumitw/pi-goal
+</code></pre>
+</li>
+<li>
+<p><del><a href="https://pi.dev/packages/@quintinshaw/pi-dynamic-workflows" rel="nofollow">dynamic-workflows</a>：动态工作流————将任务分发到数百个子代理</del>（可选，这个比较重）</p>
+<pre class="notranslate"><code class="notranslate">pi install npm:@quintinshaw/pi-dynamic-workflows
 </code></pre>
 </li>
 <li></li>
