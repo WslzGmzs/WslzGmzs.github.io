@@ -879,11 +879,11 @@ screen_reader_detection_done = true
 <pre class="notranslate"><code class="notranslate">curl -fsSL https://pi.dev/install.sh | sh
 </code></pre>
 <ol start="2">
-<li>配置 API 和模型</li>
+<li>配置 API 和模型(快捷键 Shift+Tab 切换推理强度，Alt+P 快速切换模型，Ctrl+L 展开模型列表)</li>
 </ol>
 <ul>
 <li>
-<p>使用 <a href="https://pi.dev/packages/better-custom-provider" rel="nofollow">better-custom-provider</a> 扩展（可选，但是会方便很多）</p>
+<p>使用 <a href="https://pi.dev/packages/better-custom-provider" rel="nofollow">better-custom-provider</a> 扩展（可选，但是会方便很多，<a href="https://pi.dev/packages/@router-for-me/pi-cliproxyapi-provider" rel="nofollow">pi-cliproxyapi-provider</a> 也可以考虑）</p>
 <p><em>安装</em></p>
 <pre class="notranslate"><code class="notranslate">pi install npm:better-custom-provider
 </code></pre>
@@ -907,7 +907,7 @@ API key：tw-xxx</p>
 </code></pre>
 </li>
 <li>
-<p><a href="https://pi.dev/packages/@plannotator/pi-extension" rel="nofollow">Plannotator</a>：计划模式</p>
+<p><a href="https://pi.dev/packages/@plannotator/pi-extension" rel="nofollow">Plannotator</a>：计划模式(Ctrl+Alt+P 快捷切换)</p>
 <p><em>前置</em></p>
 <pre class="notranslate"><code class="notranslate">sudo apt install -y build-essential
 npm --prefix ~/.pi/agent/npm install-scripts approve node-pty
@@ -948,19 +948,39 @@ source ~/.bashrc
 <p>然后<code class="notranslate">/ps:settings</code>把 <strong>Status widget</strong>：on 打开</p>
 </li>
 <li>
-<p><a href="https://pi.dev/packages/pi-workspace-history" rel="nofollow">undo</a>：撤销、回滚和还原，需要 git</p>
+<p><a href="https://pi.dev/packages/pi-workspace-history" rel="nofollow">undo</a>：撤销、回滚和还原</p>
 <pre class="notranslate"><code class="notranslate">pi install npm:pi-workspace-history
 </code></pre>
 </li>
-<li></li>
-</ul>
-<pre class="notranslate"><code class="notranslate">
+<li>
+<p><a href="https://pi.dev/packages/pi-blackhole" rel="nofollow">pi-blackhole</a>：上下文算法压缩</p>
+<p><em>这个相对比较轻量，想要更多功能的可以尝试安装 <a href="https://github.com/cortexkit/magic-context">magic-context</a>，支持无感压缩和记忆，值得研究</em></p>
+<pre class="notranslate"><code class="notranslate">pi install npm:pi-blackhole
+npm --prefix ~/.pi/agent/npm install-scripts approve pi-blackhole esbuild
 </code></pre>
-<ul>
-<li></li>
-</ul>
-<pre class="notranslate"><code class="notranslate">
+<p>然后<code class="notranslate">/blackhole settings</code>把 <code class="notranslate">Session model fallback</code> 设置为 <code class="notranslate">on</code> 允许退回使用会话主模型进行观察记忆（可能会破坏缓存）</p>
+</li>
+<li>
+<p><del><a href="https://pi.dev/packages/pi-cc-extensions" rel="nofollow">pi-cc-extensions</a>：类 Claude Code TUI 风格主题</del>（因为没有下面的好看，舍弃了）</p>
+<pre class="notranslate"><code class="notranslate">pi install npm:pi-cc-extensions
 </code></pre>
+</li>
+<li>
+<p><a href="https://pi.dev/packages/pi-muelsyse-macaron" rel="nofollow">pi-muelsyse-macaron</a>：轻量的缪尔赛思马卡龙视觉主题与终端界面(还挺好看的)</p>
+<pre class="notranslate"><code class="notranslate">pi install npm:pi-muelsyse-macaron
+</code></pre>
+</li>
+<li>
+<p><a href="https://pi.dev/packages/pi-favorites-commands" rel="nofollow">pi-favorites-commands</a>：收藏置顶斜杠命令</p>
+<pre class="notranslate"><code class="notranslate">pi install npm:pi-favorites-commands
+</code></pre>
+</li>
+<li>
+<p><a href="https://github.com/agegr/pi-web">pi-web</a>：pi 编码代理的 Web 用户界面（用不太习惯，不过图形界面有图形界面的好处，拿来配置东西挺方便的，有这个其实不太需要 better-custom-provider 扩展来配置模型渠道了）</p>
+<pre class="notranslate"><code class="notranslate">npm install -g @agegr/pi-web@latest --allow-scripts=@agegr/pi-web,node-pty,@google/genai,protobufjs
+</code></pre>
+</li>
+</ul>
 </details>
 <hr>
 <details open="">
