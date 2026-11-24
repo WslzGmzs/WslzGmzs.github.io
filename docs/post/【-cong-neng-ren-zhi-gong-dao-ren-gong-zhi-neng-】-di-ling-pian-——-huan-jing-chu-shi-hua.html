@@ -910,10 +910,10 @@ API key：tw-xxx</p>
 <p><a href="https://pi.dev/packages/@plannotator/pi-extension" rel="nofollow">Plannotator</a>：计划模式(Ctrl+Alt+P 快捷切换)</p>
 <p><em>前置</em></p>
 <pre class="notranslate"><code class="notranslate">sudo apt install -y build-essential
-npm --prefix ~/.pi/agent/npm install-scripts approve node-pty
 </code></pre>
 <p><em>安装</em></p>
 <pre class="notranslate"><code class="notranslate">pi install npm:@plannotator/pi-extension
+npm --prefix ~/.pi/agent/npm install-scripts approve node-pty
 </code></pre>
 <p>WSL 关闭了与 Win 交互，浏览器打开不方便，需要设置 <code class="notranslate">export PLANNOTATOR_BROWSER=none</code>，永久生效在 <code class="notranslate">$HOME/.bashrc</code> 或 <code class="notranslate">$HOME/.zshrc</code> 等文件中添加或者执行下面命令</p>
 <pre class="notranslate"><code class="notranslate">echo 'export PLANNOTATOR_BROWSER=none' &gt;&gt; ~/.bashrc  
