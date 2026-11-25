@@ -1052,12 +1052,27 @@ What now? Link it anyway (push and pull retry later)</p>
 <pre class="notranslate"><code class="notranslate">tt-a1i/archify
 </code></pre>
 <ul>
+<li><a href="https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/sympy">sympy</a></li>
+</ul>
+<pre class="notranslate"><code class="notranslate">K-Dense-AI/scientific-agent-skills/tree/main/skills/sympy
+</code></pre>
+<ul>
 <li>
 <p><a href="https://github.com/iOfficeAI/OfficeCLI">OfficeCLI</a></p>
 <p>Cli 安装</p>
 <pre class="notranslate"><code class="notranslate">curl -fsSL https://raw.githubusercontent.com/iOfficeAI/OfficeCLI/main/install.sh | bash
 </code></pre>
-<p>同步——&gt;收集——&gt;强制同步</p>
+<p>Web——&gt;同步——&gt;收集——&gt;强制同步</p>
+</li>
+<li>
+<p><a href="https://github.com/vercel-labs/agent-browser">agent-browser</a><br>
+Cli 安装</p>
+<pre class="notranslate"><code class="notranslate">npm install -g agent-browser
+agent-browser install --with-deps
+</code></pre>
+<p>skill 安装</p>
+<pre class="notranslate"><code class="notranslate">vercel-labs/agent-browser
+</code></pre>
 </li>
 <li>
 <p><a href="https://github.com/mattpocock/skills">mattpocock/skills</a></p>
@@ -1070,13 +1085,37 @@ What now? Link it anyway (push and pull retry later)</p>
 </ul>
 <pre class="notranslate"><code class="notranslate">emilkowalski/skills
 </code></pre>
+<ol start="4">
+<li>安装mcp（<a href="http://127.0.0.1:19420/mcp%EF%BC%89" rel="nofollow">http://127.0.0.1:19420/mcp）</a></li>
+</ol>
+<ul>
+<li><a href="https://github.com/SammySnake-d/fast-context-mcp">fast-context-mcp</a></li>
+</ul>
+<p>安装</p>
+<pre class="notranslate"><code class="notranslate">npm install -g @sammysnake/fast-context-mcp
+</code></pre>
+<p>添加 MCP ——&gt; 粘贴配置</p>
+<pre class="notranslate"><code class="notranslate">{
+  "mcpServers": {
+    "fast-context": {
+      "command": "fast-context-mcp",
+      "args": [],
+      "env": {
+        "WINDSURF_API_KEY": "sk-ws-01-xxxxx",
+        "FC_TIMEOUT_MS": "60000",
+        "FC_HIDE_EXTRACT_WINDSURF_KEY_TOOL": "true"
+      }
+    }
+  }
+}
+</code></pre>
+<p>添加 Key 环境变量（在这里<code class="notranslate">https://app.devin.ai/org/xxxxxxx/settings/devin-api?tab=pats</code>创建，xxxxxxx自己组织的id）</p>
+<pre class="notranslate"><code class="notranslate">echo 'export WINDSURF_API_KEY="sk-ws-01-xxxxx"' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
 <ul>
 <li></li>
-<li></li>
 </ul>
-<ol start="4">
-<li></li>
-</ol>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
