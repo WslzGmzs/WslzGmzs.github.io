@@ -1114,8 +1114,32 @@ agent-browser install --with-deps
 source ~/.bashrc
 </code></pre>
 <ul>
-<li></li>
+<li><a href="https://github.com/colbymchenry/codegraph">codegraph</a></li>
 </ul>
+<p>安装</p>
+<pre class="notranslate"><code class="notranslate">npm i -g @colbymchenry/codegraph
+</code></pre>
+<p>添加 MCP ——&gt; 粘贴配置</p>
+<pre class="notranslate"><code class="notranslate">{
+  "mcpServers": {
+    "codegraph": {
+      "type": "stdio",
+      "command": "codegraph",
+      "args": ["serve", "--mcp"],
+      "alwaysLoad": true
+    }
+  }
+}
+</code></pre>
+<p>关闭遥测</p>
+<pre class="notranslate"><code class="notranslate">codegraph telemetry off
+</code></pre>
+<p>初始化项目</p>
+<pre class="notranslate"><code class="notranslate">codegraph init
+</code></pre>
+<p>索引状态</p>
+<pre class="notranslate"><code class="notranslate">codegraph status
+</code></pre>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
