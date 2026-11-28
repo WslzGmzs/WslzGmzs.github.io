@@ -1073,9 +1073,12 @@ What now? Link it anyway (push and pull retry later)</p>
 </li>
 <li>
 <p><a href="https://github.com/vercel-labs/agent-browser">agent-browser</a><br>
-Cli 安装</p>
+Cli和浏览器 安装</p>
 <pre class="notranslate"><code class="notranslate">npm install -g agent-browser
 agent-browser install --with-deps
+</code></pre>
+<p>配置 PATH</p>
+<pre class="notranslate"><code class="notranslate">mkdir -p ~/.local/bin &amp;&amp; printf '%s\n' '#!/usr/bin/env bash' 'BIN="$(ls -d ~/.agent-browser/browsers/chrome-*/chrome 2&gt;/dev/null | sort -Vr | head -n1)"' 'if [[ -z "$BIN" || ! -x "$BIN" ]]; then echo "chromium: 未找到 agent-browser Chrome，先跑 agent-browser install" &gt;&amp;2; exit 1; fi' 'exec "$BIN" "$@"' &gt; ~/.local/bin/chromium &amp;&amp; chmod +x ~/.local/bin/chromium
 </code></pre>
 <p>skill 安装</p>
 <pre class="notranslate"><code class="notranslate">vercel-labs/agent-browser
